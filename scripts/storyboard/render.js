@@ -30,20 +30,29 @@ for (const sc of scenes) {
   const page = await browser.newPage({ viewport: { width: 1080, height: 1920 } });
   await page.goto('file://' + path.join(out, 'index.html'));
   await page.evaluate(() => document.fonts.ready);
+  const safeIssues = [];
   for (const v of ['V1', 'V2']) {
     for (const sc of scenes) {
       await page.evaluate(([s, ver]) => window.render(s, ver, { safe: true }), [sc, v]);
       await page.evaluate(() => Promise.all([...document.images].map((i) => i.complete ? 0 : new Promise((r) => { i.onload = i.onerror = r; }))));
       await page.evaluate(() => document.fonts.ready);
       await page.screenshot({ path: path.join(out, 'frames', `${v}_${sc.id}.png`) });
+      // safe zone: text must stay out of the TikTok/Reels UI bands
+      const bad = await page.evaluate(() => [...document.querySelectorAll('.cap div, .kw, .big, .bubble, .strip, .stamp, .heading h1, .url')]
+        .flatMap((el) => { const rg = document.createRange(); rg.selectNodeContents(el);  // actual text line boxes
+          return [...rg.getClientRects()].filter((r) => r.width > 2).map((r) => ({ cls: el.className || el.tagName, r })); })
+        .filter(({ r }) => r.top < 230 || r.bottom > 1440 || r.left < 40 || (r.right > 940 && r.bottom > 700) || r.right > 1040)
+        .map(({ cls, r }) => `${cls} [${Math.round(r.left)},${Math.round(r.top)} → ${Math.round(r.right)},${Math.round(r.bottom)}]`));
+      if (bad.length) safeIssues.push(`${v} ${sc.id}: ${bad.join('; ')}`);
     }
   }
+  if (safeIssues.length) { console.error('SAFE-ZONE:\n' + safeIssues.join('\n')); process.exitCode = 2; }
 
   // review sheets
   const esc = (s) => s.replace(/\[\[|\]\]|\{\{|\}\}/g, '');
   for (const v of ['V1', 'V2']) {
     const cards = scenes.map((sc) => {
-      const said = sc.phrases.map((i) => `${phr[i].screen_text}${phr[i].screen_text_status === 'question_open' ? ' (؟)' : ''}`).join(' ');
+      const said = sc.phrases.map((i) => `${phr[i].screen_text}${phr[i].screen_text_status === 'question_open' ? ' (؟)' : phr[i].screen_text_status === 'user_kept_script_temporary' ? ' (مؤقت)' : ''}`).join(' ');
       return `<div class="card"><img src="frames/${v}_${sc.id}.png">
         <div class="meta"><b>${sc.id}</b><span dir="ltr">${sc.t[0].toFixed(2)}–${sc.t[1].toFixed(2)} s</span></div>
         <div class="said">${said ? '«' + esc(said) + '»' : '(صمت)'}</div>
@@ -63,7 +72,7 @@ for (const sc of scenes) {
       .beat{font-size:22px;line-height:1.55;color:#E4DEFF;margin:0 4px 8px}
       .assets{font-size:22px;font-weight:700;color:#F2A60F;margin:0 4px}
     </style></head><body><h1>لوحة المشاهد الثابتة — ${title}</h1>
-    <p class="sub">إطار مفتاحي واحد لكل مشهد على التوقيت المقاس، والصوت هو التسجيل الأصلي دون تغيير. الشاشات الحقيقية من لقطاتك وتسجيلك. المربعات المقطّعة أماكن شاشات ناقصة. المساحات المخططة هي منطقة واجهة تيك توك وإنستقرام (لا نص مهم فيها). (؟) = صياغة بانتظار تأكيدك. هذه لوحة مراجعة وليست الفيديو النهائي.</p>
+    <p class="sub">إطار مفتاحي واحد لكل مشهد على التوقيت المقاس، والصوت هو التسجيل الأصلي دون تغيير. كل الشاشات حقيقية من لقطاتك وتسجيلك، ورموز QR مستبدلة برسم بكسل غير قابل للمسح. المساحات المخططة هي منطقة واجهة تيك توك وإنستقرام (لا نص مهم فيها). (مؤقت) = صياغة معتمدة مؤقتًا حتى تحسمها. هذه لوحة مراجعة وليست الفيديو النهائي.</p>
     <div class="grid">${cards}</div></body></html>`;
     fs.writeFileSync(path.join(out, `sheet_${v}.html`), html);
     const sp = await browser.newPage({ viewport: { width: 2280, height: 1200 } });

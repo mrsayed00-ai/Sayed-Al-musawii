@@ -1,7 +1,8 @@
 """Prepare storyboard assets from the local (git-ignored) media folder.
 
 - phone screenshots: crop iOS status bar (top) and Safari bar (bottom)
-- host screenshots: copied as-is
+- host screenshots: copied as-is, except B02/B04 whose real QR codes are
+  replaced by non-scannable pixel art (qr_pixel.py, verified with two readers)
 - recording frames: rotated 90deg CCW (transpose=2); movies frame cropped
   above the price pills (no prices on screen, user decision)
 - character sprites at scale 1 (+ a tall variant whose jacket runs to the
@@ -20,16 +21,27 @@ root = sys.argv[1]
 sys.path.insert(0, os.path.join(root, "scripts", "character"))
 from sprite import compose  # noqa: E402
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from qr_pixel import QR_AREAS, pixelize, qr_found  # noqa: E402
+
 media = os.path.join(root, "media")
 out = os.path.join(root, "renders", "storyboard", "assets")
 os.makedirs(out, exist_ok=True)
 
 PHONE_TOP, PHONE_BOTTOM = 150, 1836  # Safari bar starts at y=1838 on 943x2048 shots
-for f in sorted(glob.glob(f"{media}/shots/A*.jpg")):
+for f in sorted(glob.glob(f"{media}/shots/*.jpg")):
     n = os.path.basename(f)[:-4]
-    Image.open(f).convert("RGB").crop((0, PHONE_TOP, 943, PHONE_BOTTOM)).save(f"{out}/{n}.png")
-for f in sorted(glob.glob(f"{media}/shots/B*.jpg")):
-    Image.open(f).convert("RGB").save(f"{out}/{os.path.basename(f)[:-4]}.png")
+    im = Image.open(f).convert("RGB")
+    if n in QR_AREAS:
+        continue  # real QR codes never reach the assets; see qr_pixel.py
+    if im.size == (943, 2048):  # phone (A##, C01-C02)
+        im = im.crop((0, PHONE_TOP, 943, PHONE_BOTTOM))
+    im.save(f"{out}/{n}.png")
+for n in QR_AREAS:
+    src = f"{media}/shots/{n}.jpg"
+    pixelize(src, n).save(f"{out}/{n}_pxqr.png")
+    found = qr_found(f"{out}/{n}_pxqr.png")
+    assert found == (0, []), f"{n}: QR still readable"
 
 rec = glob.glob(f"{media}/source/game_recording_*.mp4")[0]
 for t in ("25.3", "26.5", "33.5", "43.5"):

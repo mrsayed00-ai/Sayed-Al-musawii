@@ -4,7 +4,7 @@
 const HOST = [60, 420, 960, 470];
 const PHONE_V2 = [316, 410, 448, 780];
 const PHONE_V1 = [452, 410, 448, 780];
-const INSET = [650, 720, 300, 514];
+const INSET = [620, 680, 300, 514];
 const H_IMP = { text: 'الأمبوستر', step: '01', color: 'var(--red)', ink: '#fff' };
 const H_BLIND = { text: 'بدون لا أشوف', step: '02', color: 'var(--green)', ink: '#fff' };
 const H_MOV = { text: 'فانوس Movies', step: '03' };
@@ -51,16 +51,16 @@ module.exports = [
   {
     id: 'S05', t: [6.06, 7.69], phrases: [4], layout: 'stage', heading: H_IMP,
     stage: [{ kind: 'host', img: 'G_26.5.png', box: HOST }, { kind: 'phone', img: 'A01.png', box: INSET, pos: 'top' }],
-    cap: 'هذي لعبة [[الأمبوستر]] في فانوس!', capTop: 1280, kw: 'لعبة [[الأمبوستر]]', kwTop: 1262, char: 'neutral_open',
+    cap: 'هذي لعبة [[الأمبوستر]] في فانوس!', kw: 'لعبة [[الأمبوستر]]', char: 'neutral_open',
     beats: { V1: 'انتقال بكسل، ثم عنوان القسم. فئات الأمبوستر على شاشة المضيف، والهاتف يدخل بشاشة البداية. الشخصية تصغر إلى الزاوية.', V2: 'نفسه بلا شخصية، مع ترجمة كاملة.' },
     assets: '✅ G05، A01',
   },
   {
     id: 'S06', t: [8.04, 10.98], phrases: [5], layout: 'stage', heading: H_IMP, glow: [540, 700],
-    stage: [{ kind: 'host', img: 'B02.png', box: HOST }, { kind: 'phone', img: 'A05.png', box: INSET, pos: 'top' }],
-    cap: 'تمسحون الـ[[QR Code]]، وكل واحد يعرف شنو الشي اللي طلع له…', capTop: 1262, kw: 'كل واحد يعرف [[شنو الشي]]', kwTop: 1262, char: 'neutral_half',
+    stage: [{ kind: 'host', img: 'B02_pxqr.png', box: HOST }, { kind: 'phone', img: 'A05.png', box: INSET, pos: 'top' }],
+    cap: 'تمسحون الـ[[QR Code]]، وكل واحد يعرف شنو الشي اللي طلع له…', kw: 'كل واحد يعرف [[شنو الشي]]', char: 'neutral_half',
     beats: { V1: 'بطاقة QR على المضيف، ثم «التلفون لازم يكون ب ايد 1» (A04)، ثم «انت مو الامبوستر، الشي اهو: عمان» (A05).', V2: 'نفسه مع ترجمة كاملة.' },
-    assets: '✅ B02، A04، A05 — رمز QR حقيقي (سؤال مفتوح)',
+    assets: '✅ B02 (QR مستبدل برسم بكسل غير قابل للمسح)، A04، A05',
   },
   {
     id: 'S07', t: [11.43, 12.01], phrases: [6], layout: 'stage', heading: H_IMP, redwash: true,
@@ -114,20 +114,20 @@ module.exports = [
   },
   {
     id: 'S13', t: [24.55, 26.69], phrases: [13], layout: 'stage', heading: H_BLIND,
-    stage: [{ kind: 'host', img: 'B04.png', box: HOST }],
+    stage: [{ kind: 'host', img: 'B04_pxqr.png', box: HOST }],
     cap: 'أنت وواحد من ربعك تمسحون الـ[[QR Code]]،', kw: 'تمسحون الـ[[QR Code]]', char: 'neutral_half',
     beats: { V1: 'بطاقة QR المزدوجة مع القواعد، وتقريب بطيء على الرمزين.', V2: 'نفسه.' },
-    assets: '✅ B04 — رمزا QR حقيقيان (سؤال مفتوح)',
+    assets: '✅ B04 (رمزا QR مستبدلان برسم بكسل غير قابل للمسح)',
   },
   {
     id: 'S14', t: [27.18, 30.53], phrases: [14, 15], layout: 'stage', heading: H_BLIND,
-    stage: [{ kind: 'phone', code: 'M8', desc: 'شاشة الهاتف في «بدون لا أشوف» التي يوجّهها اللاعب للآخر', box: PHONE_V2 }],
-    stageV1: [{ kind: 'phone', code: 'M8', desc: 'شاشة الهاتف في «بدون لا أشوف» التي يوجّهها اللاعب للآخر', box: PHONE_V1 }],
-    extrasV2: [{ type: 'illus', x: 20, y: 470, html: PX_ILLUS }, { type: 'note', x: 80, y: 1180, t: '(؟) «تلفونه» أم «التلفون»؟ بانتظار تأكيدك' }],
-    extrasV1: [{ type: 'illus', x: 70, y: 470, html: PX_ILLUS }],
-    cap: 'وكل واحد يوجّه شاشة تلفونه للثاني، [[بدون ما يشوف]] شنو طلع له.', capTop: 1240, kw: '[[بدون ما يشوف]] شنو طلع له.', char: 'sly',
-    beats: { V1: 'الشاشة الحقيقية (ناقصة)، ومعها رسم بكسل توضيحي لهاتفين متقابلين.', V2: 'نفسه مع ترجمة كاملة.' },
-    assets: '❌ M8 ناقصة',
+    stage: [{ kind: 'phone', img: 'C01.png', box: PHONE_V2, pos: 'top' }, { kind: 'phone', img: 'C02.png', box: [40, 470, 250, 430], pos: 'top' }],
+    stageV1: [{ kind: 'phone', img: 'C01.png', box: PHONE_V1, pos: 'top' }, { kind: 'phone', img: 'C02.png', box: [90, 440, 250, 430], pos: 'top' }],
+    extrasV2: [{ type: 'illus', x: 790, y: 440, scale: 0.8, html: PX_ILLUS }],
+    extrasV1: [{ type: 'illus', x: 92, y: 884, scale: 0.75, html: PX_ILLUS }],
+    cap: 'وكل واحد يوجّه [[شاشة تلفونه]] للثاني،', kw: 'يوجّه [[شاشة تلفونه]] للثاني،', char: 'sly',
+    beats: { V1: 'العبارة 14: «اضغط على جاهز وحط الشاشة باتجاه خصمك» (C02). العبارة 15: الصورة التي يراها الخصم فقط، «برياني» (C01)، وتحلّ ترجمتها «بدون ما يشوف شنو طلع له.» محل العبارة 14 عند 29.58 ث. رسم بكسل صغير لهاتفين متقابلين يشرح الحركة، وليس واجهة.', V2: 'نفسه مع ترجمة كاملة.' },
+    assets: '✅ C01، C02',
   },
   {
     id: 'S15', t: [31.82, 36.1], phrases: [16, 17], layout: 'stage', heading: H_BLIND,
@@ -147,27 +147,27 @@ module.exports = [
   },
   {
     id: 'S17', t: [40.84, 43.43], phrases: [20], layout: 'stage', heading: H_MOV,
-    stage: [{ kind: 'host', code: 'M10 · M11', desc: 'فئات فيلم معيّن في وضع Movies، ثم سؤال عن أحداثه', box: HOST }],
+    stage: [{ kind: 'host', img: 'C05.png', box: HOST }, { kind: 'host', img: 'C04.png', box: [500, 830, 420, 205] }],
     cap: 'يتحدّاك بأسئلة عن [[الفيلم نفسه وأحداثه!]]', kw: '[[الفيلم نفسه وأحداثه!]]', char: 'neutral_open',
-    beats: { V1: 'فئات الفيلم ثم شاشة سؤال (ناقصتان).', V2: 'نفسه.' },
-    assets: '❌ M10، M11 ناقصة',
+    beats: { V1: 'لوحة فيلم «The Terminal» بفئاته (C04)، ثم سؤال «من أي دولة يعود السيد نافورسكي» (C05). لا أسعار في الشاشتين.', V2: 'نفسه.' },
+    assets: '✅ C04، C05 (C06 الإجابة احتياط)',
   },
   {
     id: 'S18', t: [44.27, 49.09], phrases: [21, 22], layout: 'stage', heading: H_KIDS,
-    stage: [{ kind: 'host', img: 'G_33.5.png', box: HOST }, { kind: 'phone', code: 'M12', desc: 'شاشة سؤال في وضع Kids', box: INSET }],
-    cap: 'مع فئات ممتعة وتفاعلية في [[«فانوس Kids»!]]', capTop: 1280, kw: 'في [[«فانوس Kids»!]]', kwTop: 1262, char: 'laugh',
-    beats: { V1: 'انتقال بكسل والتمييز بالأزرق (لون وضع الأطفال). فئات الأطفال، ثم شاشة سؤال (ناقصة).', V2: 'نفسه.' },
-    assets: '✅ G07 / ❌ M12',
+    stage: [{ kind: 'host', img: 'G_33.5.png', box: HOST }, { kind: 'host', img: 'C03.png', box: [500, 830, 420, 205] }],
+    cap: 'مع فئات ممتعة وتفاعلية في [[«فانوس Kids»!]]', kw: 'في [[«فانوس Kids»!]]', char: 'laugh',
+    beats: { V1: 'انتقال بكسل والتمييز بالأزرق (لون وضع الأطفال). العبارة 21: سؤال «صح او غلط» بشارة فانوس KIDS (C03). العبارة 22: فئات الأطفال (G07).', V2: 'نفسه.' },
+    assets: '✅ G07، C03',
   },
   {
     id: 'S19', t: [49.83, 52.13], phrases: [23, 24], layout: 'tiles', char: 'laugh',
     tiles: [
       { img: 'A10.png', label: 'الأمبوستر', pos: 'center 8%', box: [80, 420, 450, 300], boxV1: [90, 520, 430, 200] },
-      { img: 'B04.png', label: 'بدون لا أشوف', box: [550, 420, 450, 300], boxV1: [560, 520, 430, 200] },
-      { img: 'G_movies_noprice.png', label: 'Movies', pos: 'top', box: [80, 800, 450, 300], boxV1: [90, 760, 430, 200] },
-      { img: 'G_33.5.png', label: 'Kids', box: [550, 800, 450, 300], boxV1: [560, 760, 430, 200] },
+      { img: 'B04_pxqr.png', label: 'بدون لا أشوف', box: [550, 420, 450, 300], boxV1: [560, 520, 430, 200] },
+      { img: 'C05.png', label: 'Movies', box: [80, 800, 450, 300], boxV1: [90, 760, 430, 200] },
+      { img: 'C03.png', label: 'Kids', box: [550, 800, 450, 300], boxV1: [560, 760, 430, 200] },
     ],
-    cap: 'جمّع ربعك وأهلك، [[وخلّ التحدّي يبدأ!]]', capTop: 1250,
+    cap: 'جمّع ربعك وأهلك، [[وخلّ التحدّي يبدأ!]]',
     beats: { V1: 'الشخصية كبيرة ومتحمسة، وفوقها بطاقات الأقسام الأربعة. لا شرح للعبة الفرق.', V2: 'شبكة 2×2 من شاشات الأقسام.' },
     assets: '✅ من المشاهد السابقة',
   },

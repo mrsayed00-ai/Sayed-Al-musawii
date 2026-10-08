@@ -27,7 +27,7 @@ html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; backgro
   background-size: 16px 16px; background-position: 0 0, 8px 8px; }
 .redwash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, rgba(229,58,52,0) 30%, rgba(229,58,52,.55) 100%); }
 
-.heading { position: absolute; top: 250px; right: 70px; left: 70px; display: flex; align-items: center;
+.heading { position: absolute; top: 262px; right: 70px; left: 70px; display: flex; align-items: center;
   justify-content: center; gap: 26px; }
 .heading h1 { margin: 0; font: 400 118px/1.05 Lalezar; text-shadow: 0 8px 0 var(--deep); white-space: nowrap; }
 .step { font: 30px Pixel; color: var(--ink); background: var(--yellow); padding: 16px 18px 12px;
@@ -46,24 +46,24 @@ html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; backgro
 .ph span { font: 800 34px/1.35 Cairo; }
 .ph i { font: 600 26px/1.3 Cairo; font-style: normal; opacity: .85; }
 
-.cap { position: absolute; right: 80px; left: 80px; top: 1236px; text-align: center; }
-.cap div { display: inline; font: 900 60px/1.55 Cairo; padding: 6px 22px; background: rgba(34,16,110,.86);
+.cap { position: absolute; right: 140px; left: 140px; bottom: 500px; text-align: center; }
+.cap div { display: inline; font: 900 54px/1.5 Cairo; padding: 6px 22px; background: rgba(34,16,110,.86);
   box-decoration-break: clone; -webkit-box-decoration-break: clone; box-shadow: 0 6px 0 rgba(13,6,48,.5); }
 .hl { color: var(--yellow); }
 .hlp { background: var(--p3); padding: 0 10px; border-radius: 10px; }
-.kw { position: absolute; top: 1190px; right: 150px; left: 410px; text-align: center; font: 400 76px/1.25 Lalezar;
+.kw { position: absolute; bottom: 502px; right: 150px; left: 410px; text-align: center; font: 400 76px/1.25 Lalezar;
   text-shadow: 0 6px 0 var(--deep); }
 
 .bubble { position: absolute; top: 250px; right: 70px; left: 70px; background: #4734B4; border: 6px solid #fff;
   padding: 28px 30px 30px; text-align: center; font: 900 70px/1.4 Cairo; box-shadow: 10px 10px 0 var(--deep); }
 .bubble:after { content: ""; position: absolute; bottom: -42px; left: 46%; width: 36px; height: 36px;
   background: #4734B4; border-right: 6px solid #fff; border-bottom: 6px solid #fff; transform: rotate(45deg); }
-.strip { position: absolute; right: 40px; left: 40px; background: var(--deep); color: #fff; border: 6px solid var(--yellow);
+.strip { position: absolute; right: 140px; left: 140px; background: var(--deep); color: #fff; border: 6px solid var(--yellow);
   text-align: center; font: 900 66px/1.4 Cairo; padding: 16px 24px; box-shadow: 0 8px 0 var(--deep); }
-.big { position: absolute; right: 70px; left: 70px; text-align: center; font: 400 130px/1.2 Lalezar;
+.big { position: absolute; right: 140px; left: 140px; text-align: center; font: 400 130px/1.2 Lalezar;
   text-shadow: 0 10px 0 var(--deep); }
 .dim { opacity: .5; font-size: 96px; }
-.stamp { position: absolute; right: 90px; left: 90px; text-align: center; font: 400 128px/1.15 Lalezar;
+.stamp { position: absolute; right: 160px; left: 160px; text-align: center; font: 400 128px/1.15 Lalezar;
   background: var(--red); padding: 20px 10px 6px; transform: rotate(-4deg); border: 8px solid #fff;
   text-shadow: -6px 0 0 rgba(0,229,255,.55), 6px 0 0 rgba(255,0,90,.55); box-shadow: 0 14px 0 rgba(13,6,48,.5); }
 .redtxt { color: #fff; text-shadow: 0 10px 0 #8E1612; }
@@ -160,14 +160,14 @@ function render(sc, v, opts) {
       if (e.type === 'big') f.appendChild($(`<div class="big ${e.cls || ''}" style="top:${e.top}px;font-size:${e.size || 130}px">${hl(e.t)}</div>`));
       if (e.type === 'chip') f.appendChild($(`<div class="chip" style="left:${e.x}px;top:${e.y}px;background:${e.bg};transform:rotate(${e.rot || 0}deg)">${e.t}</div>`));
       if (e.type === 'meter') f.appendChild($(`<div class="meter" style="left:${e.x}px;top:${e.y}px"><b>الشك</b><i style="width:${e.fill}%"></i></div>`));
-      if (e.type === 'illus') f.appendChild($(`<div class="illus" style="left:${e.x}px;top:${e.y}px">${e.html}</div>`));
+      if (e.type === 'illus') f.appendChild($(`<div class="illus" style="left:${e.x}px;top:${e.y}px;transform:scale(${e.scale || 1});transform-origin:top left">${e.html}</div>`));
       if (e.type === 'note') f.appendChild($(`<div class="note" style="left:${e.x}px;top:${e.y}px">${e.t}</div>`));
     }
     if (V1) {
       charImg(f, sc.char || 'neutral_half', 7, 40, 1020, false);
-      if (sc.kw) f.appendChild($(`<div class="kw" style="${sc.kwTop ? 'top:' + sc.kwTop + 'px' : ''}">${hl(sc.kw)}</div>`));
+      if (sc.kw) f.appendChild($(`<div class="kw">${hl(sc.kw)}</div>`));
     } else if (sc.cap) {
-      f.appendChild($(`<div class="cap" style="${sc.capTop ? 'top:' + sc.capTop + 'px' : ''}"><div>${hl(sc.cap)}</div></div>`));
+      f.appendChild($(`<div class="cap"><div>${hl(sc.cap)}</div></div>`));
     }
   }
 
@@ -180,13 +180,13 @@ function render(sc, v, opts) {
       f.appendChild($(`<div class="bubble" style="top:250px;font-size:60px">${hl(sc.cap)}</div>`));
       charImg(f, sc.char, 10, 540 - 240, 1010, true);
     } else {
-      f.appendChild($(`<div class="cap" style="top:${sc.capTop || 1250}px"><div>${hl(sc.cap)}</div></div>`));
+      f.appendChild($(`<div class="cap"><div>${hl(sc.cap)}</div></div>`));
     }
   }
 
   if (L === 'end') {
     f.appendChild($(`<img class="logo" src="assets/fanous_wordmark_white.png" style="top:${V1 ? 300 : 420}px;width:${V1 ? 640 : 780}px">`));
-    f.appendChild($(`<div class="big" style="top:${V1 ? 560 : 760}px;font-size:${V1 ? 104 : 120}px">${hl(sc.cta)}</div>`));
+    f.appendChild($(`<div class="big" style="top:${V1 ? 560 : 760}px;font-size:104px">${hl(sc.cta)}</div>`));
     f.appendChild($(`<div class="url" style="top:${V1 ? 730 : 960}px">alfanous.app</div>`));
     if (V1) {
       charImg(f, sc.char, 10, 540 - 240, 960, true);
