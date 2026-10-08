@@ -1,15 +1,20 @@
-# Public repo: never commit personal/reference media or large models
+# Public repo: personal media, screen recordings, reference video, logo
+# files and renders stay local and untracked.
 media/
+renders/
 *.mp4
 *.m4a
 *.mov
 *.wav
 *.webp
-*.onnx
-*.tar.bz2
-renders/
-*.zip
 *.jpg
 *.jpeg
+*.png
+*.gif
+*.zip
+*.onnx
+*.tar.bz2
 shots/
 brand/
+node_modules/
+__pycache__/

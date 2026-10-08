@@ -27,9 +27,7 @@
     "points_text_darkred": "#6C0F1E"
   },
   "ad_derived_not_in_app": {
-    "_note": "Proposed for the ad only (dark base like the reference video, tinted to Fanous purple). Pending user approval.",
-    "ad_background": "#140F2E",
-    "ad_text_dark": "#1A1440"
+    "_note": "Dark #140F2E background proposal withdrawn 2026-10-09: backgrounds use the logo purple gradient with white glow (user decision)."
   },
   "logo": {
     "_source": "user logo JPG (2026-10-09)",
@@ -48,5 +46,12 @@
       "#5345E6"
     ],
     "page_bottom": "#573EE0"
+  },
+  "accents": {
+    "_source": "sampled from app screens 2026-10-09",
+    "highlight_yellow_new_badge": "#F2A60F",
+    "impostor_reveal_number": "#E65F6E",
+    "vote_ready_green": "#0F9C5A",
+    "impostor_option_border": "#BD86F0"
   }
 }

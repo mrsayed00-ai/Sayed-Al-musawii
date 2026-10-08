@@ -1,0 +1,129 @@
+{
+ "_method": "Teacher-forced log P(text|audio) per candidate wording (scripts/asr_score.py). margin = heard - script in nats; >~5 = decisive, ~1-2 = not decisive (language-model prior can explain it).",
+ "scores": {
+  "turbo": {
+   "5": {
+    "script": {
+     "logp": -31.56,
+     "tokens": 19,
+     "per_token": -1.661,
+     "text": "تمسحون ال QR الكل يعرف الشي اللي طلع له"
+    },
+    "heard": {
+     "logp": -7.23,
+     "tokens": 26,
+     "per_token": -0.278,
+     "text": "تمسحون ال QR كود وكل واحد يعرف شنو الشي اللي طلع له"
+    },
+    "margin_heard_minus_script": 24.33
+   },
+   "12": {
+    "script": {
+     "logp": -21.91,
+     "tokens": 11,
+     "per_token": -1.992,
+     "text": "وعندك بدون لا أشوف"
+    },
+    "heard": {
+     "logp": -8.2,
+     "tokens": 17,
+     "per_token": -0.482,
+     "text": "وطبعا عندك فئة بدون لا أشوف"
+    },
+    "margin_heard_minus_script": 13.71
+   },
+   "13": {
+    "script": {
+     "logp": -20.82,
+     "tokens": 18,
+     "per_token": -1.157,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR"
+    },
+    "heard": {
+     "logp": -14.18,
+     "tokens": 19,
+     "per_token": -0.746,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR Code"
+    },
+    "margin_heard_minus_script": 6.64
+   },
+   "14": {
+    "script": {
+     "logp": -5.42,
+     "tokens": 20,
+     "per_token": -0.271,
+     "text": "وكل واحد يوجه شاشة تليفونه للثاني"
+    },
+    "heard": {
+     "logp": -3.38,
+     "tokens": 19,
+     "per_token": -0.178,
+     "text": "وكل واحد يوجه شاشة التليفون للثاني"
+    },
+    "margin_heard_minus_script": 2.04
+   }
+  },
+  "large-v3": {
+   "5": {
+    "script": {
+     "logp": -30.54,
+     "tokens": 19,
+     "per_token": -1.607,
+     "text": "تمسحون ال QR الكل يعرف الشي اللي طلع له"
+    },
+    "heard": {
+     "logp": -9.3,
+     "tokens": 26,
+     "per_token": -0.358,
+     "text": "تمسحون الـ QR Code وكل واحد يعرف شنو الشي اللي طلع له"
+    },
+    "margin_heard_minus_script": 21.24
+   },
+   "12": {
+    "script": {
+     "logp": -17.25,
+     "tokens": 11,
+     "per_token": -1.568,
+     "text": "وعندك بدون لا اشوف"
+    },
+    "heard": {
+     "logp": -6.22,
+     "tokens": 17,
+     "per_token": -0.366,
+     "text": "وطبعا عندك فئة بدون لا أشوف"
+    },
+    "margin_heard_minus_script": 11.03
+   },
+   "13": {
+    "script": {
+     "logp": -16.82,
+     "tokens": 18,
+     "per_token": -0.934,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR"
+    },
+    "heard": {
+     "logp": -11.93,
+     "tokens": 19,
+     "per_token": -0.628,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR Code"
+    },
+    "margin_heard_minus_script": 4.89
+   },
+   "14": {
+    "script": {
+     "logp": -3.68,
+     "tokens": 20,
+     "per_token": -0.184,
+     "text": "وكل واحد يوجه شاشة تليفونه للثاني"
+    },
+    "heard": {
+     "logp": -2.41,
+     "tokens": 19,
+     "per_token": -0.127,
+     "text": "وكل واحد يوجه شاشة التليفون للثاني"
+    },
+    "margin_heard_minus_script": 1.27
+   }
+  }
+ }
+}

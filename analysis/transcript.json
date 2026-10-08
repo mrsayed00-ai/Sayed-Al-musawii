@@ -1,5 +1,5 @@
 {
- "_method": "Phrase start/end = Silero VAD (measured). script_text = user-supplied script (2026-10-08) split onto the 25 measured phrases (1:1 match). heard_variant = wording where the recording differs from the script, agreed by two independent models (Whisper large-v3 and turbo); screen text for those phrases waits on the user's choice. whisper_* fields kept for audit. Word-level timing NOT measured.",
+ "_method": "Phrase start/end = Silero VAD (measured). script_text = user-supplied script (2026-10-08) split onto the 25 measured phrases (1:1 match). heard_variant = wording where the recording differs from the script, agreed by two independent models (Whisper large-v3 and turbo); screen text for those phrases waits on the user's choice. whisper_* fields kept for audit. Word-level timing NOT measured. screen_text = what is displayed: script, except phrases 5/12/13 where the recording's wording is adopted (user decision 2026-10-09, confirmed by forced-choice scoring); phrase 14 is an open question.",
  "audio": "WhatsApp Audio 2026-10-08 at 11.07.08 PM.mp4 (AAC 48 kHz stereo)",
  "duration": 55.744,
  "phrases": [
@@ -12,7 +12,8 @@
    "whisper_pass2_padded": "في واحد بينكم معرفة السارفة",
    "script_text": "في واحد بينكم مو عارف السالفة…",
    "whisper_turbo_check": "في واحد بينكم معارفة الصرفة",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "في واحد بينكم مو عارف السالفة…"
   },
   {
    "id": 2,
@@ -23,7 +24,8 @@
    "whisper_pass2_padded": "لكن يمثل النفاة",
    "script_text": "بس قاعد يمثّل إنه فاهم!",
    "whisper_turbo_check": "بس قاعد يمثل النفاة",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "بس قاعد يمثّل إنه فاهم!"
   },
   {
    "id": 3,
@@ -33,7 +35,8 @@
    "whisper_pass1": "تكدرون ت",
    "whisper_pass2_padded": "تكدرون تكشفون",
    "script_text": "تقدرون تكشفونه؟",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تقدرون تكشفونه؟"
   },
   {
    "id": 4,
@@ -43,7 +46,8 @@
    "whisper_pass1": "هذه لعبة المبوستر في ف",
    "whisper_pass2_padded": "هذه لعبة المبوستر في فانوس",
    "script_text": "هذي لعبة الأمبوستر في فانوس!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "هذي لعبة الأمبوستر في فانوس!"
   },
   {
    "id": 5,
@@ -55,7 +59,12 @@
    "script_text": "تمسحون الـQR، الكل يعرف الشي اللي طلع له…",
    "whisper_turbo_check": "تمسحون الـ QR Code وكل واحد يعرف شنه الشي اللي طلع له",
    "heard_variant": "تمسحون الـQR Code، وكل واحد يعرف شنو الشي اللي طلع له…",
-   "screen_text_status": "pending_user_choice"
+   "screen_text_status": "heard_adopted",
+   "screen_text": "تمسحون الـQR Code، وكل واحد يعرف شنو الشي اللي طلع له…",
+   "score_margin_nats": {
+    "turbo": 24.33,
+    "large-v3": 21.24
+   }
   },
   {
    "id": 6,
@@ -65,7 +74,8 @@
    "whisper_pass1": "الا واحد",
    "whisper_pass2_padded": "إلا واحد",
    "script_text": "إلا واحد!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "إلا واحد!"
   },
   {
    "id": 7,
@@ -75,7 +85,8 @@
    "whisper_pass1": "تبدأ جولة الأسئلة وكل جواب يز",
    "whisper_pass2_padded": "تبدأ جولة الأسئلة وكل جواب يزيد الشك",
    "script_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك.",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك."
   },
   {
    "id": 8,
@@ -85,7 +96,8 @@
    "whisper_pass1": "وبعدها التصويت",
    "whisper_pass2_padded": "وبعدها التصويت",
    "script_text": "وبعدها التصويت…",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "وبعدها التصويت…"
   },
   {
    "id": 9,
@@ -95,7 +107,8 @@
    "whisper_pass1": "من الامبوست",
    "whisper_pass2_padded": "من الامبوستر؟",
    "script_text": "منو الأمبوستر؟",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "منو الأمبوستر؟"
   },
   {
    "id": 10,
@@ -105,7 +118,8 @@
    "whisper_pass1": "يمكن أقرب واحد لك",
    "whisper_pass2_padded": "يمكن أقرب واحد لك",
    "script_text": "يمكن أقرب واحد لك",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "يمكن أقرب واحد لك"
   },
   {
    "id": 11,
@@ -116,7 +130,8 @@
    "whisper_pass2_padded": "جادك صالح",
    "script_text": "قاعد يقص عليك!",
    "whisper_turbo_check": "جادي قصلك؟",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "قاعد يقص عليك!"
   },
   {
    "id": 12,
@@ -128,7 +143,12 @@
    "script_text": "وعندك «بدون لا أشوف»!",
    "whisper_turbo_check": "وطبعا عندك فات بدون العشوف",
    "heard_variant": "وطبعاً عندك فئة «بدون لا أشوف»!",
-   "screen_text_status": "pending_user_choice"
+   "screen_text_status": "heard_adopted",
+   "screen_text": "وطبعاً عندك فئة «بدون لا أشوف»!",
+   "score_margin_nats": {
+    "turbo": 13.71,
+    "large-v3": 11.03
+   }
   },
   {
    "id": 13,
@@ -140,7 +160,12 @@
    "script_text": "أنت وواحد من ربعك تمسحون الـQR،",
    "whisper_turbo_check": "و واحد من رابعك تمسحون الـ QR Code",
    "heard_variant": "أنت وواحد من ربعك تمسحون الـQR Code،",
-   "screen_text_status": "pending_user_choice"
+   "screen_text_status": "heard_adopted",
+   "screen_text": "أنت وواحد من ربعك تمسحون الـQR Code،",
+   "score_margin_nats": {
+    "turbo": 6.64,
+    "large-v3": 4.89
+   }
   },
   {
    "id": 14,
@@ -152,7 +177,13 @@
    "script_text": "وكل واحد يوجّه شاشة تلفونه للثاني،",
    "whisper_turbo_check": "وكل واحد يوجه شاشة التلفون للثاني",
    "heard_variant": "وكل واحد يوجّه شاشة التلفون للثاني،",
-   "screen_text_status": "pending_user_choice"
+   "screen_text_status": "question_open",
+   "screen_text": "وكل واحد يوجّه شاشة تلفونه للثاني،",
+   "score_margin_nats": {
+    "turbo": 2.04,
+    "large-v3": 1.27
+   },
+   "question": "27.2 ث: «شاشة تلفونه» أم «شاشة التلفون»؟ النموذجان يميلان قليلًا لـ«التلفون» بفارق غير حاسم."
   },
   {
    "id": 15,
@@ -162,7 +193,8 @@
    "whisper_pass1": "بدون ما اشوف ش",
    "whisper_pass2_padded": "بدون ما نرى ما رأى عليه",
    "script_text": "بدون ما يشوف شنو طلع له.",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "بدون ما يشوف شنو طلع له."
   },
   {
    "id": 16,
@@ -172,7 +204,8 @@
    "whisper_pass1": "تسألون أسئلة إجاب",
    "whisper_pass2_padded": "تسألون أسأل إجابتها نعم أو لا",
    "script_text": "تسألون أسئلة إجابتها نعم أو لا…",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تسألون أسئلة إجابتها نعم أو لا…"
   },
   {
    "id": 17,
@@ -182,7 +215,8 @@
    "whisper_pass1": "لين تعرفون شنو الشي اللي",
    "whisper_pass2_padded": "لين تعرفون شنو الشي اللي عندكم؟",
    "script_text": "لين تعرفون شنو الشي اللي عندكم!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "لين تعرفون شنو الشي اللي عندكم!"
   },
   {
    "id": 18,
@@ -192,7 +226,8 @@
    "whisper_pass1": "أتعب فيلم وتقول",
    "whisper_pass2_padded": "أتعب فيلم وتقول حافظة",
    "script_text": "تحب فيلم وتقول حافظه؟",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تحب فيلم وتقول حافظه؟"
   },
   {
    "id": 19,
@@ -202,7 +237,8 @@
    "whisper_pass1": "فانوس موووو",
    "whisper_pass2_padded": "فانوس مووويز",
    "script_text": "«فانوس Movies»",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "«فانوس Movies»"
   },
   {
    "id": 20,
@@ -212,7 +248,8 @@
    "whisper_pass1": "يتحدىك بسأله عن الفيلم نفسه",
    "whisper_pass2_padded": "يتحدىك بسألة عن الفيلم نفسه واحداه",
    "script_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!"
   },
   {
    "id": 21,
@@ -222,7 +259,8 @@
    "whisper_pass1": "والصغار لهم مناست",
    "whisper_pass2_padded": "والصغار لهم وناستهم بعد",
    "script_text": "والصغار لهم وناستهم بعد،",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "والصغار لهم وناستهم بعد،"
   },
   {
    "id": 22,
@@ -232,7 +270,8 @@
    "whisper_pass1": "مع فئات ممتعة وتفاعليه في فانوس",
    "whisper_pass2_padded": "مع فئات ممتعة وتفاعلية في فانوس كيز",
    "script_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!"
   },
   {
    "id": 23,
@@ -243,7 +282,8 @@
    "whisper_pass2_padded": "يمع ربعك وهلك",
    "script_text": "جمّع ربعك وأهلك،",
    "whisper_turbo_check": "يمع ربعك وهلك",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "جمّع ربعك وأهلك،"
   },
   {
    "id": 24,
@@ -253,7 +293,8 @@
    "whisper_pass1": "وخلي التحدي",
    "whisper_pass2_padded": "وخلي التحدي يبدأ",
    "script_text": "وخلّ التحدّي يبدأ!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "وخلّ التحدّي يبدأ!"
   },
   {
    "id": 25,
@@ -263,7 +304,8 @@
    "whisper_pass1": "حمل تطبيق فانوس",
    "whisper_pass2_padded": "حمل تطبيق فانوس",
    "script_text": "حمّل تطبيق فانوس!",
-   "screen_text_status": "script_confirmed"
+   "screen_text_status": "script_confirmed",
+   "screen_text": "حمّل تطبيق فانوس!"
   }
  ],
  "context_chunks_pass": [
