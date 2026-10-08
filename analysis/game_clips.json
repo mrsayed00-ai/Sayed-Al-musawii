@@ -1,0 +1,40 @@
+{
+  "_source": "WhatsApp Video 2026-10-08 at 9.05.41 PM.mp4 (384x848, 60fps, 89.7s). Content is a landscape app inside a portrait capture: fix with ffmpeg -vf transpose=2 (90deg counter-clockwise) -> 848x384.",
+  "usable": [
+    {"id": "G01", "t": [3.0, 4.9],  "screen": "Home top: mode buttons (اطفال / أفلام), country flags, search, 'جديد' cards", "note": "iOS home-indicator bar at bottom edge - crop or keep inside phone mockup"},
+    {"id": "G02", "t": [5.0, 17.4], "screen": "Home scroll through general categories (عام، من عربي، من اجنبي، انمي...)", "note": "real brands/posters/characters visible"},
+    {"id": "G03", "t": [22.0, 24.9], "screen": "Scroll anime -> العاب categories"},
+    {"id": "G04", "t": [25.0, 25.9], "screen": "Section 'بدون لا اشوف': عام، دول، اكلات، سيارات، لاعبين كرة قدم، العاب، One Piece، Naruto، WWE (green badge)", "note": "only category cards, no gameplay"},
+    {"id": "G05", "t": [26.0, 26.9], "screen": "Section 'امبوستر': عام، دول، اكلات، اماكن، حيوانات، سيارات، لاعبين كرة قدم، العاب، Anime، One Piece (red badge)", "note": "only category cards, no gameplay"},
+    {"id": "G06", "t": [27.0, 27.9], "screen": "'ابدأ لعبة جديدة' form (empty)"},
+    {"id": "G07", "t": [32.0, 33.9], "screen": "Kids mode (blue theme): اعلام الدول، ولا كلمة حيوانات، حيوانات، فواكه وخضراوات، منو لاعب كرة"},
+    {"id": "G08", "t": [36.0, 39.9], "screen": "Kids mode scroll: كرتون، 2x3=6، صح او غلط، معلومات عامة، خمن الصورة KIDS..."},
+    {"id": "G09", "t": [41.0, 45.9], "screen": "Movies mode (red/dark): movie cards with '1.00 KWD' price pills"},
+    {"id": "G10", "t": [46.0, 46.9], "screen": "Movies: popup 'اختر 6 فئات'"},
+    {"id": "G11", "t": [47.0, 49.9], "screen": "Movies new-game form (red start button) + Hancock / Maleficent cards"},
+    {"id": "G12", "t": [52.0, 56.9], "screen": "Purple home: selecting categories (red selection border)"},
+    {"id": "G13", "t": [57.0, 63.9], "screen": "New game form typing (keyboard visible 58-62), filled form at 63", "note": "keyboard frames less suitable"},
+    {"id": "G14", "t": [67.0, 67.9], "screen": "Team trivia board 200/400/600 (classic Fanous mode)"},
+    {"id": "G15", "t": [68.0, 71.9], "screen": "Question 'ما هو الأسم العلمي للذهب الأبيض' + image -> answer 'البلاتين'"},
+    {"id": "G16", "t": [72.0, 72.9], "screen": "'منو الفريق الي جاوب' team picker"},
+    {"id": "G17", "t": [75.0, 78.9], "screen": "Flag question (Wales) -> 'تنين'"},
+    {"id": "G18", "t": [79.0, 81.9], "screen": "Riddle 'شيء له أربع أصابع وإبهام...'"},
+    {"id": "G19", "t": [82.0, 83.9], "screen": "حروف hex-letter question -> 'امتنان'"},
+    {"id": "G20", "t": [84.0, 88.9], "screen": "Board with score updates"}
+  ],
+  "do_not_use": [
+    {"t": [0.0, 2.9], "why": "phone rotating + iOS 'Game Mode: Off' banner"},
+    {"t": [17.5, 21.9], "why": "iOS Control Center overlay"},
+    {"t": [40.0, 40.9], "why": "greyed transition between modes"},
+    {"t": [50.0, 50.9], "why": "'كيف تلعب؟' with blank/loading card"},
+    {"t": [64.0, 66.9], "why": "loading spinner on start button"},
+    {"t": [89.0, 89.7], "why": "iOS Control Center (stop recording)"}
+  ],
+  "missing_from_recording": [
+    "Impostor gameplay: QR screen, per-player word screen, impostor screen, question round, voting, reveal",
+    "بدون لا أشوف gameplay: QR screen, the screen each player shows to the other, any in-game screen",
+    "Movies gameplay: a specific movie's categories + question screens about the movie/events",
+    "Kids gameplay: question screen(s) in kids mode",
+    "Logo file (SVG/PNG) - only a low-res wordmark is visible in the header"
+  ]
+}

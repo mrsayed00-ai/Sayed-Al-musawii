@@ -1,0 +1,10 @@
+# Public repo: never commit personal/reference media or large models
+media/
+*.mp4
+*.m4a
+*.mov
+*.wav
+*.webp
+*.onnx
+*.tar.bz2
+renders/

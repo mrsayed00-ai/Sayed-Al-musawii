@@ -1,0 +1,30 @@
+{
+  "_source": "Sampled from the Fanous screen recording (WhatsApp Video 9.05.41 PM) after rotation fix; values are medians of small pixel patches, WhatsApp compression shifts them slightly.",
+  "fanous_core": {
+    "header_gradient": ["#6655C2", "#4734B4", "#3420AD"],
+    "primary_button": "#4734B4",
+    "section_lavender": "#D2CDEA",
+    "card_purple": "#5E53AD",
+    "board_card_purple": "#6253AB",
+    "page_white": "#FCFCFC",
+    "logo": "white wordmark on purple"
+  },
+  "mode_accents": {
+    "impostor_badge_red": "#E53A34",
+    "blind_badge_green": "#4AA44C",
+    "movies_header_red": "#B51B1D",
+    "movies_price_red": "#D60D15",
+    "movies_bg_dark": "#321414",
+    "kids_header_blue": "#2C91EC",
+    "kids_section_light": "#CBE4F8"
+  },
+  "board": {
+    "points_pill_gray": "#C7CCCB",
+    "points_text_darkred": "#6C0F1E"
+  },
+  "ad_derived_not_in_app": {
+    "_note": "Proposed for the ad only (dark base like the reference video, tinted to Fanous purple). Pending user approval.",
+    "ad_background": "#140F2E",
+    "ad_text_dark": "#1A1440"
+  }
+}
