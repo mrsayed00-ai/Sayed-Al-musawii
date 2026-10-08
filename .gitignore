@@ -8,3 +8,8 @@ media/
 *.onnx
 *.tar.bz2
 renders/
+*.zip
+*.jpg
+*.jpeg
+shots/
+brand/

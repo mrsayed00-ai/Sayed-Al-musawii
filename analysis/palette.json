@@ -1,7 +1,11 @@
 {
   "_source": "Sampled from the Fanous screen recording (WhatsApp Video 9.05.41 PM) after rotation fix; values are medians of small pixel patches, WhatsApp compression shifts them slightly.",
   "fanous_core": {
-    "header_gradient": ["#6655C2", "#4734B4", "#3420AD"],
+    "header_gradient": [
+      "#6655C2",
+      "#4734B4",
+      "#3420AD"
+    ],
     "primary_button": "#4734B4",
     "section_lavender": "#D2CDEA",
     "card_purple": "#5E53AD",
@@ -26,5 +30,23 @@
     "_note": "Proposed for the ad only (dark base like the reference video, tinted to Fanous purple). Pending user approval.",
     "ad_background": "#140F2E",
     "ad_text_dark": "#1A1440"
+  },
+  "logo": {
+    "_source": "user logo JPG (2026-10-09)",
+    "gradient": [
+      "#7F71CE",
+      "#6851C5",
+      "#5230BB"
+    ],
+    "lantern_pattern": "#6244BE",
+    "wordmark": "#FFFFFF"
+  },
+  "mobile_web_screens": {
+    "_source": "impostor phone screenshots A01-A18",
+    "button_gradient": [
+      "#8F34E9",
+      "#5345E6"
+    ],
+    "page_bottom": "#573EE0"
   }
 }

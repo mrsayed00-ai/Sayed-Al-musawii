@@ -1,0 +1,41 @@
+{
+  "_source": "Two WhatsApp zips sent 2026-10-09 ~1:30 AM. Files renamed in capture order (WhatsApp suffix order: none, (1), (2)...). Stills, not recordings. Kept outside the public repo.",
+  "_crop_notes": {
+    "A (phone, 943x2048 portrait, alfanous.app in mobile Safari)": "crop iOS status bar + 'الكاميرا' back-link (top ~130px) and Safari bottom bar with URL (bottom ~210px); keep the in-app small round Fanous logo",
+    "B (host screen, 2048x943 landscape)": "full frame usable; app header + board/question card"
+  },
+  "app_flow_learned": [
+    "Impostor and 'بدون لا أشوف' are question cards inside the team board game (B01): the host screen shows a QR card, players scan it and continue on a phone in the browser.",
+    "Impostor on phone: choose team-1 player count -> enter names for both teams -> pass the phone hand to hand ('التلفون لازم يكون ب ايد N') -> each sees the secret thing, except the impostor -> who-asks-whom -> free questions counter -> vote -> drumroll -> reveal -> impostor guesses the thing -> result/winner.",
+    "'بدون لا أشوف' on host: two QR codes (one per team); answer view shows both players' things side by side."
+  ],
+  "impostor_phone": [
+    {"id": "A01", "screen": "Imposter 🕵️ — كم عدد لاعبين الفريق الاول؟ (1–8) + التالي"},
+    {"id": "A02", "screen": "اسماء لاعبين الفريق الاول (لاعب 1–4)"},
+    {"id": "A03", "screen": "اسماء لاعبين الفريق الثاني (5–8) + ابدا اللعب 🎯"},
+    {"id": "A04", "screen": "📱 التلفون لازم يكون ب ايد 1 — اضغط التالي عشان تعرف اذا انت الامبوستر ولا لا"},
+    {"id": "A05", "screen": "انت مو الامبوستر، الشي اهو: عمان — لازم الحين تعرف منو الامبوستر"},
+    {"id": "A06", "screen": "التلفون لازم يكون ب ايد 2"},
+    {"id": "A07", "screen": "انت مو الامبوستر، الشي اهو: عمان (player 2)"},
+    {"id": "A08", "screen": "التلفون لازم يكون ب ايد 3"},
+    {"id": "A09", "screen": "انت مو الامبوستر، الشي اهو: عمان (player 3)"},
+    {"id": "A10", "screen": "انت الامبوستر ولازم تعرف شنو الشي وما تخليهم يصوتون عليك"},
+    {"id": "A11", "screen": "4 يسأل 6 (who asks whom)"},
+    {"id": "A12", "screen": "الحين اسألة عشوائية - اسأل اي شخص شاك فيه 0/16 + استخدم سؤال + جاهزين للتصويت 🗳️"},
+    {"id": "A13", "screen": "1 منو تتوقع الامبوستر — vote list 2–8 (4 selected) + تأكيد التصويت", "note": "small Safari toast at the bottom edge"},
+    {"id": "A14", "screen": "🥁 الامبوستر اهو..."},
+    {"id": "A15", "screen": "الامبوستر اهو... 5 + التالي"},
+    {"id": "A16", "screen": "5 شنو تتوقع الشي؟ — 10 options (مصر، تونس، الأرجنتين، المكسيك، البحرين، لبنان، عمان، أسبانيا، اليونان، كوريا) + تأكيد الاختيار"},
+    {"id": "A17", "screen": "الشي كان: عمان — team lists + نقاط الفريق الاول 0 / الثاني 2"},
+    {"id": "A18", "screen": "same as A17 + 🏆 فاز الفريق الثاني"}
+  ],
+  "host_screen": [
+    {"id": "B01", "screen": "Team board: دول، اكلات (blind-mode chef icon)، صح او غلط، حيوانات، ANIME، حروف; teams 'Fanous' vs 'Fanous'"},
+    {"id": "B02", "screen": "Impostor QR card (دول 400, timer 04:59): فانوس Impostor logo + QR + rules: شخص واحد يصور الباركود / واحد منكم راح يكون الامبوستر / فوز الامبوستر يعني فوز فريقه", "note": "real scannable QR; red Among Us-style crewmate peeks at the bottom (third-party IP)"},
+    {"id": "B03", "screen": "Answer view of that card: سويسرا + Swiss flag + منو جاوب"},
+    {"id": "B04", "screen": "'بدون لا أشوف' QR card (اكلات 400, 02:54): two QRs + rules: شخص واحد من كل فريق يصور باركود واحد / الفريق الي عنده الدور يسأل اول سؤال / ممنوع تسأل نفس سؤال خصمك", "note": "real scannable QRs"},
+    {"id": "B05", "screen": "Answer view: two cards side by side — hot dog / spaghetti + منو جاوب"},
+    {"id": "B06", "screen": "منو الفريق الي جاوب — Fanous / Fanous / محد جاوب"}
+  ],
+  "logo": {"file": "brand/fanous_wordmark_white.png (scratchpad, 1500x546 RGBA)", "derived_from": "user logo JPG 1600x1600 (white wordmark on purple gradient #7F71CE -> #6851C5 -> #5230BB with faint lantern pattern #6244BE)", "method": "alpha = clamp((min(R,G,B) - 150) / 85)"}
+}
