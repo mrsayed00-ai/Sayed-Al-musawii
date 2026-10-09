@@ -86,4 +86,7 @@ for v in [x for x in ("V1", "V2") if not ONLY or x == ONLY]:
     report[v] = {"file": os.path.relpath(dst, root), "size_mib": round(size / 2 ** 20, 2), "video_kbps_target": kbps,
                  "audio_kbps": A_KBPS, "quality_vs_lossless_frames": quality(v, dst)}
     print(v, json.dumps(report[v]), flush=True)
-json.dump(report, open(f"{OUT}/encode_report.json", "w"), indent=1)
+rp = f"{OUT}/encode_report.json"
+merged = json.load(open(rp)) if os.path.exists(rp) else {}
+merged.update(report)  # --only runs in parallel add their version
+json.dump(merged, open(rp, "w"), indent=1)
