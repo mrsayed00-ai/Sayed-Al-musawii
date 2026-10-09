@@ -1,7 +1,8 @@
 // Render the animated previews (V1 + V2) frame by frame with Playwright, then
 // mux with the voice using ffmpeg.
-// Usage: NODE_PATH=<global node_modules> node render_video.js <repo_root> [--test t1,t2,...] [--scale 0.5] [--audio <wav>] [--only V1|V2] [--encode-only]
+// Usage: NODE_PATH=<global node_modules> node render_video.js <repo_root> [--test t1,t2,...] [--scale 0.5] [--audio <wav>] [--only V1|V2] [--encode-only] [--png --no-encode]
 // --scale 1 writes the 1080x1920 export to renders/final/, smaller scales write previews to renders/video/.
+// --png --no-encode: lossless frames only (frames_png_<V>/), for scripts/video/encode_final.py.
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -15,6 +16,8 @@ const audio = arg('--audio', path.join(root, 'media', 'derived', 'voice2_enhance
 const only = arg('--only', null);
 const encodeOnly = process.argv.includes('--encode-only'); // reuse captured frames, re-run ffmpeg only
 const FULL = scale === 1;
+const PNG = process.argv.includes('--png');
+const noEncode = process.argv.includes('--no-encode');
 const out = path.join(root, 'renders', 'video');
 const sbDir = path.join(root, 'renders', 'storyboard');
 const tl = JSON.parse(fs.readFileSync(path.join(out, 'timeline.json'), 'utf8'));
@@ -48,7 +51,7 @@ const anim = fs.readFileSync(path.join(__dirname, 'anim.js'), 'utf8');
     const page_file = path.join(sbDir, `anim_${version}.html`);
     fs.writeFileSync(page_file, html);
     const frames = testTimes ? testTimes.split(',').map((s) => Math.round(parseFloat(s) * tl.fps)) : [...Array(tl.n).keys()];
-    const dir = path.join(out, testTimes ? `test_${version}` : `frames_${version}`);
+    const dir = path.join(out, testTimes ? `test_${version}` : PNG ? `frames_png_${version}` : `frames_${version}`);
     if (!encodeOnly) {
     const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: scale });
     await page.goto('file://' + page_file);
@@ -58,8 +61,10 @@ const anim = fs.readFileSync(path.join(__dirname, 'anim.js'), 'utf8');
     for (const i of frames) {
       await page.evaluate((k) => window.renderFrame(k), i);
       await page.evaluate(() => Promise.all([...document.images].map((im) => im.complete ? 0 : new Promise((r) => { im.onload = im.onerror = r; }))));
-      const name = testTimes ? `t${(i / tl.fps).toFixed(2)}.jpg` : `f${String(i).padStart(5, '0')}.jpg`;
-      await page.screenshot({ path: path.join(dir, name), type: 'jpeg', quality: FULL ? 95 : 90 });
+      const ext = PNG ? 'png' : 'jpg';
+      const name = testTimes ? `t${(i / tl.fps).toFixed(2)}.${ext}` : `f${String(i).padStart(5, '0')}.${ext}`;
+      if (PNG) await page.screenshot({ path: path.join(dir, name), type: 'png' });
+      else await page.screenshot({ path: path.join(dir, name), type: 'jpeg', quality: FULL ? 95 : 90 });
       if (i % 3 === 0) {
         // safe-zone check on settled frames (not during entrance animations)
         const t = i / tl.fps;
@@ -76,7 +81,7 @@ const anim = fs.readFileSync(path.join(__dirname, 'anim.js'), 'utf8');
     }
     await page.close();
     }
-    if (!testTimes) {
+    if (!testTimes && !noEncode) {
       const finalDir = path.join(root, 'renders', 'final');
       fs.mkdirSync(finalDir, { recursive: true });
       const mp4 = FULL ? path.join(finalDir, `fanous_ad_${version}_1080x1920.mp4`) : path.join(out, `preview_${version}.mp4`);

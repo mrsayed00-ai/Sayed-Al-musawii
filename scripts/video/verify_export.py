@@ -1,6 +1,9 @@
-"""Checks on the exported ads (renders/final/fanous_ad_<V>_1080x1920.mp4).
+"""Checks on the final ads (renders/final/Fanous_Ad_V1_PixelCharacter_1080x1920.mp4,
+Fanous_Ad_V2_NoCharacter_1080x1920.mp4, from encode_final.py).
 
-- streams: 1080x1920, 30 fps, H.264 High, yuv420p, AAC 48 kHz, both starting at 0
+- streams: 1080x1920, 30 fps, H.264 High, yuv420p, BT.709 tags, AAC 48 kHz, both starting at 0
+- colour fidelity: frames decoded as a BT.709 player would, against the
+  lossless PNG frames (mean signed error per channel = colour shift)
 - length equals the recording
 - the soundtrack is the current recording only: the decoded track against the
   enhanced voice (normalised cross-correlation ~1 at lag 0, residual after
@@ -58,10 +61,33 @@ def loud(path):
     return float(j["input_i"]), float(j["input_tp"])
 
 
+NAMES = {"V1": "Fanous_Ad_V1_PixelCharacter_1080x1920.mp4", "V2": "Fanous_Ad_V2_NoCharacter_1080x1920.mp4"}
+
+
+def colour_check(v, mp4):
+    from PIL import Image
+    errs = []
+    for i in (150, 600, 900, 1300, 1650):
+        png = f"{root}/renders/video/frames_png_{v}/f{i:05d}.png"
+        if not os.path.exists(png):
+            continue
+        tmp = f"{root}/renders/final/_c.png"
+        run(["ffmpeg", "-v", "error", "-y", "-i", mp4, "-vf",
+             f"select=eq(n\\,{i}),scale=in_color_matrix=bt709:in_range=tv:flags=accurate_rnd+full_chroma_int,format=rgb24",
+             "-vsync", "vfr", "-frames:v", "1", tmp])
+        a = np.asarray(Image.open(tmp).convert("RGB"), dtype=float)
+        b = np.asarray(Image.open(png).convert("RGB"), dtype=float)
+        os.remove(tmp)
+        errs.append((a - b).reshape(-1, 3))
+    e = np.concatenate(errs)
+    return {"frames": len(errs), "mean_signed_rgb": [round(float(x), 2) for x in e.mean(0)],
+            "mean_abs_rgb": [round(float(x), 2) for x in np.abs(e).mean(0)]}
+
+
 new, old = mono16(NEW), mono16(OLD)
 report = {}
 for v in ("V1", "V2"):
-    mp4 = f"{root}/renders/final/fanous_ad_{v}_1080x1920.mp4"
+    mp4 = f"{root}/renders/final/{NAMES[v]}"
     pr = json.loads(run(["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", mp4]).stdout)
     vs = next(s for s in pr["streams"] if s["codec_type"] == "video")
     as_ = next(s for s in pr["streams"] if s["codec_type"] == "audio")
@@ -79,7 +105,9 @@ for v in ("V1", "V2"):
     xs, _ = sf.read(st, dtype="float64")
     os.remove(st)
     rep = {
-        "video": f'{vs["codec_name"]} {vs.get("profile")} {vs["width"]}x{vs["height"]} {vs["pix_fmt"]} {vs["r_frame_rate"]} fps, {int(vs.get("bit_rate", 0)) / 1e6:.1f} Mb/s',
+        "file": f'{NAMES[v]} ({os.path.getsize(mp4) / 2 ** 20:.2f} MiB)',
+        "video": f'{vs["codec_name"]} {vs.get("profile")} L{vs.get("level")} {vs["width"]}x{vs["height"]} {vs["pix_fmt"]} {vs["r_frame_rate"]} fps, {int(vs.get("bit_rate", 0)) / 1e6:.2f} Mb/s, {vs.get("nb_frames")} frames',
+        "colour_tags": [vs.get("color_space"), vs.get("color_primaries"), vs.get("color_transfer"), vs.get("color_range")],
         "audio": f'{as_["codec_name"]} {as_["sample_rate"]} Hz {as_["channels"]} ch {int(as_.get("bit_rate", 0)) / 1e3:.0f} kb/s',
         "start_times": [vs.get("start_time"), as_.get("start_time")],
         "duration_s": {"file": round(float(pr["format"]["duration"]), 3), "video": round(float(vs["duration"]), 3),
@@ -108,6 +136,7 @@ for v in ("V1", "V2"):
         os.remove(f"{qdir}/{q}")
     os.rmdir(qdir)
     rep["qr"] = {"frames_checked": len(qs), "readable_or_detected": bad}
+    rep["colour_vs_lossless"] = colour_check(v, mp4)
     report[v] = rep
     print(v, json.dumps(rep, ensure_ascii=False, indent=1), flush=True)
 json.dump(report, open(f"{root}/renders/final/verify_report.json", "w"), ensure_ascii=False, indent=1)
