@@ -13,7 +13,11 @@
    "script_text": "في واحد بينكم مو عارف السالفة…",
    "whisper_turbo_check": "في واحد بينكم معارفة الصرفة",
    "screen_text_status": "script_confirmed",
-   "screen_text": "في واحد بينكم مو عارف السالفة…"
+   "screen_text": "في واحد بينكم مو عارف السالفة…",
+   "vad_enhanced": [
+    1.002,
+    2.438
+   ]
   },
   {
    "id": 2,
@@ -25,7 +29,11 @@
    "script_text": "بس قاعد يمثّل إنه فاهم!",
    "whisper_turbo_check": "بس قاعد يمثل النفاة",
    "screen_text_status": "script_confirmed",
-   "screen_text": "بس قاعد يمثّل إنه فاهم!"
+   "screen_text": "بس قاعد يمثّل إنه فاهم!",
+   "vad_enhanced": [
+    2.858,
+    4.102
+   ]
   },
   {
    "id": 3,
@@ -36,7 +44,11 @@
    "whisper_pass2_padded": "تكدرون تكشفون",
    "script_text": "تقدرون تكشفونه؟",
    "screen_text_status": "script_confirmed",
-   "screen_text": "تقدرون تكشفونه؟"
+   "screen_text": "تقدرون تكشفونه؟",
+   "vad_enhanced": [
+    4.618,
+    5.574
+   ]
   },
   {
    "id": 4,
@@ -47,7 +59,11 @@
    "whisper_pass2_padded": "هذه لعبة المبوستر في فانوس",
    "script_text": "هذي لعبة الأمبوستر في فانوس!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "هذي لعبة الأمبوستر في فانوس!"
+   "screen_text": "هذي لعبة الأمبوستر في فانوس!",
+   "vad_enhanced": [
+    6.058,
+    7.718
+   ]
   },
   {
    "id": 5,
@@ -64,7 +80,11 @@
    "score_margin_nats": {
     "turbo": 24.33,
     "large-v3": 21.24
-   }
+   },
+   "vad_enhanced": [
+    8.042,
+    11.014
+   ]
   },
   {
    "id": 6,
@@ -75,7 +95,11 @@
    "whisper_pass2_padded": "إلا واحد",
    "script_text": "إلا واحد!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "إلا واحد!"
+   "screen_text": "إلا واحد!",
+   "vad_enhanced": [
+    11.402,
+    12.038
+   ]
   },
   {
    "id": 7,
@@ -86,7 +110,11 @@
    "whisper_pass2_padded": "تبدأ جولة الأسئلة وكل جواب يزيد الشك",
    "script_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك.",
    "screen_text_status": "script_confirmed",
-   "screen_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك."
+   "screen_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك.",
+   "vad_enhanced": [
+    12.522,
+    15.27
+   ]
   },
   {
    "id": 8,
@@ -97,7 +125,11 @@
    "whisper_pass2_padded": "وبعدها التصويت",
    "script_text": "وبعدها التصويت…",
    "screen_text_status": "script_confirmed",
-   "screen_text": "وبعدها التصويت…"
+   "screen_text": "وبعدها التصويت…",
+   "vad_enhanced": [
+    15.69,
+    16.806
+   ]
   },
   {
    "id": 9,
@@ -108,7 +140,11 @@
    "whisper_pass2_padded": "من الامبوستر؟",
    "script_text": "منو الأمبوستر؟",
    "screen_text_status": "script_confirmed",
-   "screen_text": "منو الأمبوستر؟"
+   "screen_text": "منو الأمبوستر؟",
+   "vad_enhanced": [
+    17.226,
+    18.086
+   ]
   },
   {
    "id": 10,
@@ -119,7 +155,11 @@
    "whisper_pass2_padded": "يمكن أقرب واحد لك",
    "script_text": "يمكن أقرب واحد لك",
    "screen_text_status": "script_confirmed",
-   "screen_text": "يمكن أقرب واحد لك"
+   "screen_text": "يمكن أقرب واحد لك",
+   "vad_enhanced": [
+    18.602,
+    19.942
+   ]
   },
   {
    "id": 11,
@@ -131,7 +171,11 @@
    "script_text": "قاعد يقص عليك!",
    "whisper_turbo_check": "جادي قصلك؟",
    "screen_text_status": "script_confirmed",
-   "screen_text": "قاعد يقص عليك!"
+   "screen_text": "قاعد يقص عليك!",
+   "vad_enhanced": [
+    20.234,
+    21.094
+   ]
   },
   {
    "id": 12,
@@ -148,7 +192,11 @@
    "score_margin_nats": {
     "turbo": 13.71,
     "large-v3": 11.03
-   }
+   },
+   "vad_enhanced": [
+    21.962,
+    23.878
+   ]
   },
   {
    "id": 13,
@@ -165,7 +213,11 @@
    "score_margin_nats": {
     "turbo": 6.64,
     "large-v3": 4.89
-   }
+   },
+   "vad_enhanced": [
+    24.554,
+    26.822
+   ]
   },
   {
    "id": 14,
@@ -177,13 +229,17 @@
    "script_text": "وكل واحد يوجّه شاشة تلفونه للثاني،",
    "whisper_turbo_check": "وكل واحد يوجه شاشة التلفون للثاني",
    "heard_variant": "وكل واحد يوجّه شاشة التلفون للثاني،",
-   "screen_text_status": "user_kept_script_temporary",
-   "screen_text": "وكل واحد يوجّه شاشة تلفونه للثاني،",
+   "screen_text_status": "user_confirmed_spoken",
+   "screen_text": "وكل واحد يوجّه شاشة تليفونه للثاني،",
    "score_margin_nats": {
     "turbo": 2.04,
     "large-v3": 1.27
    },
-   "note": "2026-10-09: المستخدم يعتمد «تلفونه» (صياغة السكربت) مؤقتًا وسيحسمها لاحقًا. فارق المقارنة الآلية غير حاسم (+1.3/+2.0 لصالح «التلفون»)."
+   "note": "2026-10-09: المستخدم أكّد أنه قال «تليفونه» في التسجيل، فيُعرض «تليفونه». (المقارنة الآلية بين «تلفونه» و«التلفون» كانت غير حاسمة.)",
+   "vad_enhanced": [
+    27.146,
+    29.19
+   ]
   },
   {
    "id": 15,
@@ -194,7 +250,11 @@
    "whisper_pass2_padded": "بدون ما نرى ما رأى عليه",
    "script_text": "بدون ما يشوف شنو طلع له.",
    "screen_text_status": "script_confirmed",
-   "screen_text": "بدون ما يشوف شنو طلع له."
+   "screen_text": "بدون ما يشوف شنو طلع له.",
+   "vad_enhanced": [
+    29.578,
+    30.566
+   ]
   },
   {
    "id": 16,
@@ -205,7 +265,11 @@
    "whisper_pass2_padded": "تسألون أسأل إجابتها نعم أو لا",
    "script_text": "تسألون أسئلة إجابتها نعم أو لا…",
    "screen_text_status": "script_confirmed",
-   "screen_text": "تسألون أسئلة إجابتها نعم أو لا…"
+   "screen_text": "تسألون أسئلة إجابتها نعم أو لا…",
+   "vad_enhanced": [
+    31.818,
+    33.798
+   ]
   },
   {
    "id": 17,
@@ -216,7 +280,11 @@
    "whisper_pass2_padded": "لين تعرفون شنو الشي اللي عندكم؟",
    "script_text": "لين تعرفون شنو الشي اللي عندكم!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "لين تعرفون شنو الشي اللي عندكم!"
+   "screen_text": "لين تعرفون شنو الشي اللي عندكم!",
+   "vad_enhanced": [
+    34.25,
+    36.134
+   ]
   },
   {
    "id": 18,
@@ -227,7 +295,11 @@
    "whisper_pass2_padded": "أتعب فيلم وتقول حافظة",
    "script_text": "تحب فيلم وتقول حافظه؟",
    "screen_text_status": "script_confirmed",
-   "screen_text": "تحب فيلم وتقول حافظه؟"
+   "screen_text": "تحب فيلم وتقول حافظه؟",
+   "vad_enhanced": [
+    37.418,
+    38.694
+   ]
   },
   {
    "id": 19,
@@ -238,7 +310,11 @@
    "whisper_pass2_padded": "فانوس مووويز",
    "script_text": "«فانوس Movies»",
    "screen_text_status": "script_confirmed",
-   "screen_text": "«فانوس Movies»"
+   "screen_text": "«فانوس Movies»",
+   "vad_enhanced": [
+    39.178,
+    40.454
+   ]
   },
   {
    "id": 20,
@@ -249,7 +325,11 @@
    "whisper_pass2_padded": "يتحدىك بسألة عن الفيلم نفسه واحداه",
    "script_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!"
+   "screen_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!",
+   "vad_enhanced": [
+    40.842,
+    43.494
+   ]
   },
   {
    "id": 21,
@@ -260,7 +340,11 @@
    "whisper_pass2_padded": "والصغار لهم وناستهم بعد",
    "script_text": "والصغار لهم وناستهم بعد،",
    "screen_text_status": "script_confirmed",
-   "screen_text": "والصغار لهم وناستهم بعد،"
+   "screen_text": "والصغار لهم وناستهم بعد،",
+   "vad_enhanced": [
+    44.266,
+    45.702
+   ]
   },
   {
    "id": 22,
@@ -271,7 +355,11 @@
    "whisper_pass2_padded": "مع فئات ممتعة وتفاعلية في فانوس كيز",
    "script_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!"
+   "screen_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!",
+   "vad_enhanced": [
+    46.378,
+    49.126
+   ]
   },
   {
    "id": 23,
@@ -283,7 +371,11 @@
    "script_text": "جمّع ربعك وأهلك،",
    "whisper_turbo_check": "يمع ربعك وهلك",
    "screen_text_status": "script_confirmed",
-   "screen_text": "جمّع ربعك وأهلك،"
+   "screen_text": "جمّع ربعك وأهلك،",
+   "vad_enhanced": [
+    49.834,
+    51.014
+   ]
   },
   {
    "id": 24,
@@ -294,7 +386,11 @@
    "whisper_pass2_padded": "وخلي التحدي يبدأ",
    "script_text": "وخلّ التحدّي يبدأ!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "وخلّ التحدّي يبدأ!"
+   "screen_text": "وخلّ التحدّي يبدأ!",
+   "vad_enhanced": [
+    51.274,
+    52.23
+   ]
   },
   {
    "id": 25,
@@ -305,7 +401,11 @@
    "whisper_pass2_padded": "حمل تطبيق فانوس",
    "script_text": "حمّل تطبيق فانوس!",
    "screen_text_status": "script_confirmed",
-   "screen_text": "حمّل تطبيق فانوس!"
+   "screen_text": "حمّل تطبيق فانوس!",
+   "vad_enhanced": [
+    52.938,
+    54.246
+   ]
   }
  ],
  "context_chunks_pass": [

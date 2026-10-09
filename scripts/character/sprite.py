@@ -1,7 +1,7 @@
 """Pixel-art bust of the presenter, drawn in code (no photo pixels are used).
 
-Reference: the user's portrait (short dark hair, full trimmed beard and
-moustache, wide smile with upper teeth, charcoal textured jacket with a big
+Reference: the user's portrait (short dark hair, short trimmed beard that
+is light on the cheeks and fuller on the jaw and chin, full moustache, wide smile with upper teeth, charcoal textured jacket with a big
 open collar over a black crew-neck tee). No headset. Skin uses a natural warm
 tone, not the photo's blue lighting. The rim light is Fanous purple.
 
@@ -15,7 +15,7 @@ W, H = 48, 60
 PAL = {
     "hair": (28, 24, 32), "hair_hi": (58, 52, 64),
     "skin": (201, 139, 99), "skin_hi": (222, 166, 124), "skin_sh": (170, 110, 76), "skin_dk": (138, 86, 58),
-    "beard": (35, 28, 32), "beard_hi": (54, 43, 46), "stubble": (110, 76, 60),
+    "beard": (38, 30, 33), "beard_md": (66, 50, 50), "stubble": (112, 79, 63), "stub_lt": (152, 105, 80),
     "brow": (26, 20, 24), "lash": (20, 14, 16),
     "eye_w": (241, 232, 224), "iris": (52, 30, 22),
     "teeth": (248, 244, 238), "mouth": (74, 26, 32), "tongue": (166, 70, 76), "lip": (120, 60, 58),
@@ -129,26 +129,37 @@ def build_base():
     for x, y in HAIR_TEX:
         put(x, y, "hair_hi")
 
-    # beard (cheeks, jaw, chin) + moustache
+    # beard: graded density, light on the cheeks, fuller along the jaw and
+    # chin, ordered-dither transitions (photo reference: short, trimmed,
+    # skin visible through it on the cheeks); moustache stays full
+    bayer = ((0.0, 0.5), (0.75, 0.25))
+    edge = {(x, y) for y, (l, r) in HEAD.items() if 28 <= y <= 34 for x in (l, l + 1, r - 1, r)}
+    chin = {(x, y) for y in (35, 36, 37) for x in range(HEAD[y][0], HEAD[y][1] + 1)}
     for y, (l, r) in HEAD.items():
         for x in range(l, r + 1):
             xl = min(x, sym(x))
             start = CHEEK.get(xl, 27)
-            if y >= start:
-                put(x, y, "beard")
+            if y < start:
+                continue
+            k = y - start
+            dens = min(0.74, 0.15 + 0.13 * k)       # fade in below the cheek line
+            if 17 <= x <= 30 and y >= 31:
+                dens = max(dens, 0.62)               # under the lip and chin
+            if (x, y) in edge:
+                dens = max(dens, 0.8)                # jaw outline
+            if (x, y) in chin:
+                dens = 0.74                          # chin underside: one even tone
+            q = dens + (bayer[y % 2][x % 2] - 0.375) * 0.22
+            c = ("skin" if q < 0.27 else "stub_lt" if q < 0.45 else "stubble" if q < 0.62
+                 else "beard_md" if q < 0.86 else "beard")
+            if c != "skin":
+                put(x, y, c)
+    for x in range(18, 30):                          # moustache: full, softer ends
+        put(x, 27, "beard" if 19 <= x <= 28 else "beard_md")
     for x in range(17, 31):
-        put(x, 28, "beard")
-    for x in range(18, 30):
-        put(x, 27, "beard")
-    for y in range(28, 38):
-        for x in range(W):
-            if g[y][x] == "beard" and (x * 5 + y * 3) % 7 == 0:
-                g[y][x] = "beard_hi"
-    # soften the beard edge against the skin
-    for y in range(14, 38):
-        for x in range(W):
-            if g[y][x] in ("beard", "beard_hi") and g[y - 1][x] in ("skin", "skin_sh", "skin_hi"):
-                g[y][x] = "stubble"
+        put(x, 28, "beard" if 18 <= x <= 29 else "beard_md")
+    for x in (19, 22, 25, 28):
+        put(x, 27, "beard_md")                       # hair texture in the moustache
     # nose
     for y in range(18, 26):
         put(24, y, "skin_hi")

@@ -1,0 +1,17 @@
+{
+  "_what": "Why «فانوس» at ~7 s (phrase 4) sounds off, measured on the original recording (2026-10-09). Not listened to by a human in this session: numbers come from spectrograms, level, pitch (pyin) and periodicity (autocorrelation).",
+  "word_window_s": [7.26, 7.67],
+  "compared_with": {"P19 «فانوس Movies»": [39.17, 39.87], "P22 «فانوس Kids»": [48.15, 48.72], "P25 «حمّل تطبيق فانوس»": [53.69, 54.19]},
+  "measurements": {
+    "word_duration_s": {"P4": 0.41, "P19": 0.70, "P22": 0.57, "P25": 0.50},
+    "vowel_duration_s": {"P4": 0.20, "P19": 0.47, "P22": 0.38, "P25": 0.25},
+    "vowel_level_slope_dB_per_100ms": {"P4": -15.2, "P19": 1.1, "P22": 0.3, "P25": -15.4},
+    "voicing": "phrase 4 is voiced 6.1–6.95 s, then no pitch is tracked across «في فانوس!» (6.95–7.7 s)",
+    "periodicity_vowel": {"P4": "0.18–0.61 (irregular)", "P19": "0.61–0.75 (steady)", "P25": "0.24–0.53"},
+    "clipping": "none in phrase 4 (the only near-full-scale samples are at 1.15 s and 3.13 s)",
+    "noise_floor_dBFS": -61.6
+  },
+  "conclusion": "Delivery, not a fixable audio defect: the word is rushed (short vowel) and the voice loses pitch (breathy/creaky) at the end of a loud, high-pitched sentence. Cleaning cannot restore voicing; a re-take of the sentence is the real fix.",
+  "applied_local_treatment": "vowel 7.28–7.50 s +3 dB, final «س» 7.51–7.67 s −4 dB above 4 kHz (zero-phase, ramped); no time-stretch",
+  "rerecord_brief": {"text": "هذي لعبة الأمبوستر في فانوس!", "slot_s": [6.06, 7.69], "max_length_without_retiming_s": 1.9, "reference_delivery": "«فانوس» at 39.2 s"}
+}
