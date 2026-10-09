@@ -2,8 +2,11 @@
 
 - Scene windows: scene starts at its first phrase (measured) and section
   changes sit at the cut points inside measured silences.
+- Everything is derived from analysis/transcript.json (current recording):
+  length, scene windows, cut points (mid-silence), gesture windows.
 - V1 character per frame: expression (per scene), mouth (lipsync.mouth_track
-  on the enhanced voice and its VAD spans), blink, gesture, size (big/small).
+  on the enhanced voice, gated by the measured VAD segments), blink, gesture,
+  size (big/small).
 - Writes renders/video/timeline.json and every character sprite the
   timeline needs to renders/storyboard/assets/charv/<key>.png (+ _tall).
 Usage: build_timeline.py <repo_root>
@@ -21,29 +24,44 @@ from gestures import compose_gesture  # noqa: E402
 from lipsync import mouth_track  # noqa: E402
 
 FPS = 30
-DUR = 55.744
+tr = json.load(open(f"{root}/analysis/transcript.json"))
+P = {p["id"]: p for p in tr["phrases"]}
+DUR = json.load(open(f"{root}/analysis/audio_enhance_report.json"))["duration_out_s"]  # = the recording, exactly
 N = math.ceil(DUR * FPS)
-CUTS = [5.8, 21.5, 36.75, 43.85, 49.45]
 
-# (id, start, end, size, expression)
+
+def cut(a):
+    """mid-silence between phrase a and a+1 (section changes and pixel transitions)"""
+    return round((P[a]["end"] + P[a + 1]["start"]) / 2, 2)
+
+
+CUTS = [cut(3), cut(11), cut(17), cut(20), cut(22)]
+for c, a in zip(CUTS, (3, 11, 17, 20, 22)):
+    assert P[a]["end"] + 0.25 <= c <= P[a + 1]["start"] - 0.25, f"cut {c} too close to speech"
+
+# (id, start, end, size, expression); a scene starts with its first phrase,
+# or at the cut point when it opens a section
+S = lambda n: P[n]["start"]  # noqa: E731
 SCENES = [
-    ("S01", 0.0, 1.0, "big", "neutral"), ("S02", 1.0, 2.86, "big", "neutral"),
-    ("S03", 2.86, 4.62, "big", "sly"), ("S04", 4.62, 5.8, "big", "suspicious"),
-    ("S05", 5.8, 8.04, "small", "neutral"), ("S06", 8.04, 11.43, "small", "neutral"),
-    ("S07", 11.43, 12.52, "small", "sly"), ("S08", 12.52, 15.69, "small", "suspicious"),
-    ("S09", 15.69, 17.23, "small", "neutral"), ("S10", 17.23, 18.6, "small", "surprised"),
-    ("S11", 18.6, 21.5, "small", "laugh"), ("S12", 21.5, 24.55, "small", "neutral"),
-    ("S13", 24.55, 27.18, "small", "neutral"), ("S14", 27.18, 31.82, "small", "sly"),
-    ("S15", 31.82, 36.75, "small", "neutral"), ("S16", 36.75, 40.84, "small", "sly"),
-    ("S17", 40.84, 43.85, "small", "neutral"), ("S18", 43.85, 49.45, "small", "neutral"),
-    ("S19", 49.45, 52.94, "big", "neutral"), ("S20", 52.94, DUR + 0.1, "big", "neutral"),
+    ("S01", 0.0, S(1), "big", "neutral"), ("S02", S(1), S(2), "big", "neutral"),
+    ("S03", S(2), S(3), "big", "sly"), ("S04", S(3), CUTS[0], "big", "suspicious"),
+    ("S05", CUTS[0], S(5), "small", "neutral"), ("S06", S(5), S(6), "small", "neutral"),
+    ("S07", S(6), S(7), "small", "sly"), ("S08", S(7), S(8), "small", "suspicious"),
+    ("S09", S(8), S(9), "small", "neutral"), ("S10", S(9), S(10), "small", "surprised"),
+    ("S11", S(10), CUTS[1], "small", "laugh"), ("S12", CUTS[1], S(13), "small", "neutral"),
+    ("S13", S(13), S(14), "small", "neutral"), ("S14", S(14), S(16), "small", "sly"),
+    ("S15", S(16), CUTS[2], "small", "neutral"), ("S16", CUTS[2], S(20), "small", "sly"),
+    ("S17", S(20), CUTS[3], "small", "neutral"), ("S18", CUTS[3], CUTS[4], "small", "neutral"),
+    ("S19", CUTS[4], S(25), "big", "neutral"), ("S20", S(25), DUR + 0.1, "big", "neutral"),
 ]
 # gestures: (start, end, kind); waves cycle a-b-a-c at 6 fps
-GESTURES = [(20.23, 21.09, "point_right"), (49.83, 52.13, "wave"), (52.94, 53.75, "wave"), (53.75, DUR + 0.1, "point_up")]
-LAST_SPEECH_END = None
+WAVE_END = round(S(25) + 0.81, 2)  # same wave length on the end card as approved
+GESTURES = [(S(11), P[11]["end"], "point_right"), (S(23), P[24]["end"], "wave"),
+            (S(25), WAVE_END, "wave"), (WAVE_END, DUR + 0.1, "point_up")]
 
-tr = json.load(open(f"{root}/analysis/transcript.json"))
-spans = [tuple(p.get("vad_enhanced", (p["start"], p["end"]))) for p in tr["phrases"]]
+# mouth gate: the measured VAD segments of the original (timing is identical in
+# the enhanced file, lag 1 sample); the envelope comes from the enhanced file
+spans = [tuple(sg) for p in tr["phrases"] for sg in p["vad_segments"]]
 LAST_SPEECH_END = spans[-1][1]
 env = json.load(open(f"{root}/analysis/voice_env30_enhanced.json"))["env"]
 env = (env + [0.0] * N)[:N]
@@ -82,7 +100,8 @@ for key in sorted({f["char"] for f in frames}):
 os.makedirs(f"{root}/renders/video", exist_ok=True)
 json.dump({"fps": FPS, "duration": DUR, "n": N, "cuts": CUTS,
            "scenes": [{"id": s[0], "start": s[1], "end": min(s[2], DUR)} for s in SCENES],
-           "phrases": [{"id": p["id"], "start": p["start"], "end": spans[k][1]} for k, p in enumerate(tr["phrases"])],
+           "phrases": [{"id": p["id"], "start": p["start"], "end": p["end"], "segments": p["vad_segments"]} for p in tr["phrases"]],
+           "gestures": GESTURES,
            "frames": frames},
           open(f"{root}/renders/video/timeline.json", "w"), ensure_ascii=False)
 print("frames", N, "sprites", len({f['char'] for f in frames}))

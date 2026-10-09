@@ -1,28 +1,28 @@
 {
- "lag_samples": -1,
- "vad_phrases_old": 25,
- "vad_phrases_new": 25,
- "max_boundary_shift_s": 0.156,
+ "source": "voice_2026-10-09_0349.m4a",
+ "output": "media/derived/voice2_enhanced.wav",
+ "lag_samples_per_10s": [
+  -1,
+  -1,
+  -1,
+  -1,
+  -1
+ ],
+ "duration_in_s": 58.645333,
+ "duration_out_s": 58.645333,
+ "vad_segments_measured": 28,
+ "vad_segments_enhanced": 24,
+ "start_shift_max_s": 0.384,
+ "end_shift_max_s": 0.388,
+ "end_shift_max_later_s": 0.388,
  "loudness_original": {
-  "I": -17.92,
-  "TP": 0.06
+  "I": -18.71,
+  "TP": 0.16
  },
  "loudness_enhanced": {
-  "I": -14.05,
-  "TP": -1.68
+  "I": -14.07,
+  "TP": -1.65
  },
- "duration_s": 55.744,
- "local_fix": {
-  "vowel": [
-   7.28,
-   7.5,
-   3.0
-  ],
-  "sin": [
-   7.51,
-   7.67,
-   -4.0
-  ]
- },
+ "local_fix": {},
  "chain": "adeclip,highpass=f=70:poles=2,deesser=i=0.3:m=0.5:f=0.5,acompressor=threshold=-20dB:ratio=2:attack=10:release=150:knee=6"
 }

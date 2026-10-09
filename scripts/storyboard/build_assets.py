@@ -47,6 +47,23 @@ rec = glob.glob(f"{media}/source/game_recording_*.mp4")[0]
 for t in ("25.3", "26.5", "33.5", "43.5"):
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", t, "-i", rec, "-frames:v", "1",
                     "-vf", "transpose=2", f"{out}/G_{t}.png"], check=True)
+# S19 section tiles from the category pages (D01-D04, 2048x943): keep rows
+# 0-900 (header, section pill, first card row; the Movies "1.00 KWD" pills
+# start at y=913), crop to each tile's exact aspect (V2 430x280: centred
+# 1382x900, V1 410x180: full width) and resample to 2x the tile size, so the
+# browser never stretches or crops them.
+TILE_SRC = {"imp": "D01", "blind": "D02", "movies": "D03", "kids": "D04"}
+for key, n in TILE_SRC.items():
+    page = Image.open(f"{media}/shots/{n}.jpg").convert("RGB")
+    assert page.size == (2048, 943), (n, page.size)
+    for v, (tw, th) in (("v2", (430, 280)), ("v1", (410, 180))):
+        h = min(900, round(2048 * th / tw))
+        w = round(h * tw / th)
+        x0 = (2048 - w) // 2
+        tile = page.crop((x0, 0, x0 + w, h)).resize((2 * tw, 2 * th), Image.LANCZOS)
+        tile.save(f"{out}/S19_{key}_{v}.png")
+        assert qr_found(f"{out}/S19_{key}_{v}.png") == (0, []), f"S19_{key}_{v}: QR found"
+
 # movies: keep header + posters, cut before the "1.00 KWD" pills (y >= 268)
 Image.open(f"{out}/G_43.5.png").crop((0, 0, 848, 264)).save(f"{out}/G_movies_noprice.png")
 

@@ -1,0 +1,428 @@
+{
+ "_method": "Phrase start/end = Silero VAD (measured). script_text = user-supplied script (2026-10-08) split onto the 25 measured phrases (1:1 match). heard_variant = wording where the recording differs from the script, agreed by two independent models (Whisper large-v3 and turbo); screen text for those phrases waits on the user's choice. whisper_* fields kept for audit. Word-level timing NOT measured. screen_text = what is displayed: script, except phrases 5/12/13 where the recording's wording is adopted (user decision 2026-10-09, confirmed by forced-choice scoring); phrase 14 is an open question.",
+ "audio": "WhatsApp Audio 2026-10-08 at 11.07.08 PM.mp4 (AAC 48 kHz stereo)",
+ "duration": 55.744,
+ "phrases": [
+  {
+   "id": 1,
+   "start": 1.0,
+   "end": 2.41,
+   "section": "hook",
+   "whisper_pass1": "في واحد بينكم معرف السار",
+   "whisper_pass2_padded": "في واحد بينكم معرفة السارفة",
+   "script_text": "في واحد بينكم مو عارف السالفة…",
+   "whisper_turbo_check": "في واحد بينكم معارفة الصرفة",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "في واحد بينكم مو عارف السالفة…",
+   "vad_enhanced": [
+    1.002,
+    2.438
+   ]
+  },
+  {
+   "id": 2,
+   "start": 2.86,
+   "end": 4.1,
+   "section": "hook",
+   "whisper_pass1": "لكن يمثل النفاه",
+   "whisper_pass2_padded": "لكن يمثل النفاة",
+   "script_text": "بس قاعد يمثّل إنه فاهم!",
+   "whisper_turbo_check": "بس قاعد يمثل النفاة",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "بس قاعد يمثّل إنه فاهم!",
+   "vad_enhanced": [
+    2.858,
+    4.102
+   ]
+  },
+  {
+   "id": 3,
+   "start": 4.62,
+   "end": 5.54,
+   "section": "hook",
+   "whisper_pass1": "تكدرون ت",
+   "whisper_pass2_padded": "تكدرون تكشفون",
+   "script_text": "تقدرون تكشفونه؟",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تقدرون تكشفونه؟",
+   "vad_enhanced": [
+    4.618,
+    5.574
+   ]
+  },
+  {
+   "id": 4,
+   "start": 6.06,
+   "end": 7.69,
+   "section": "impostor",
+   "whisper_pass1": "هذه لعبة المبوستر في ف",
+   "whisper_pass2_padded": "هذه لعبة المبوستر في فانوس",
+   "script_text": "هذي لعبة الأمبوستر في فانوس!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "هذي لعبة الأمبوستر في فانوس!",
+   "vad_enhanced": [
+    6.058,
+    7.718
+   ]
+  },
+  {
+   "id": 5,
+   "start": 8.04,
+   "end": 10.98,
+   "section": "impostor",
+   "whisper_pass1": "تمسحون الـ QR Code وكل واحد يعرف شنو الشي",
+   "whisper_pass2_padded": "تمسحون ال QR كود و كل واحد يعرف شنو الشي اللي طلع له",
+   "script_text": "تمسحون الـQR، الكل يعرف الشي اللي طلع له…",
+   "whisper_turbo_check": "تمسحون الـ QR Code وكل واحد يعرف شنه الشي اللي طلع له",
+   "heard_variant": "تمسحون الـQR Code، وكل واحد يعرف شنو الشي اللي طلع له…",
+   "screen_text_status": "heard_adopted",
+   "screen_text": "تمسحون الـQR Code، وكل واحد يعرف شنو الشي اللي طلع له…",
+   "score_margin_nats": {
+    "turbo": 24.33,
+    "large-v3": 21.24
+   },
+   "vad_enhanced": [
+    8.042,
+    11.014
+   ]
+  },
+  {
+   "id": 6,
+   "start": 11.43,
+   "end": 12.01,
+   "section": "impostor",
+   "whisper_pass1": "الا واحد",
+   "whisper_pass2_padded": "إلا واحد",
+   "script_text": "إلا واحد!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "إلا واحد!",
+   "vad_enhanced": [
+    11.402,
+    12.038
+   ]
+  },
+  {
+   "id": 7,
+   "start": 12.52,
+   "end": 15.27,
+   "section": "impostor",
+   "whisper_pass1": "تبدأ جولة الأسئلة وكل جواب يز",
+   "whisper_pass2_padded": "تبدأ جولة الأسئلة وكل جواب يزيد الشك",
+   "script_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك.",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تبدأ جولة الأسئلة، وكل جواب يزيد الشك.",
+   "vad_enhanced": [
+    12.522,
+    15.27
+   ]
+  },
+  {
+   "id": 8,
+   "start": 15.69,
+   "end": 16.65,
+   "section": "impostor",
+   "whisper_pass1": "وبعدها التصويت",
+   "whisper_pass2_padded": "وبعدها التصويت",
+   "script_text": "وبعدها التصويت…",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "وبعدها التصويت…",
+   "vad_enhanced": [
+    15.69,
+    16.806
+   ]
+  },
+  {
+   "id": 9,
+   "start": 17.23,
+   "end": 18.09,
+   "section": "impostor",
+   "whisper_pass1": "من الامبوست",
+   "whisper_pass2_padded": "من الامبوستر؟",
+   "script_text": "منو الأمبوستر؟",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "منو الأمبوستر؟",
+   "vad_enhanced": [
+    17.226,
+    18.086
+   ]
+  },
+  {
+   "id": 10,
+   "start": 18.6,
+   "end": 19.94,
+   "section": "impostor",
+   "whisper_pass1": "يمكن أقرب واحد لك",
+   "whisper_pass2_padded": "يمكن أقرب واحد لك",
+   "script_text": "يمكن أقرب واحد لك",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "يمكن أقرب واحد لك",
+   "vad_enhanced": [
+    18.602,
+    19.942
+   ]
+  },
+  {
+   "id": 11,
+   "start": 20.23,
+   "end": 21.09,
+   "section": "impostor",
+   "whisper_pass1": "جادك سعيد",
+   "whisper_pass2_padded": "جادك صالح",
+   "script_text": "قاعد يقص عليك!",
+   "whisper_turbo_check": "جادي قصلك؟",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "قاعد يقص عليك!",
+   "vad_enhanced": [
+    20.234,
+    21.094
+   ]
+  },
+  {
+   "id": 12,
+   "start": 21.96,
+   "end": 23.88,
+   "section": "blind",
+   "whisper_pass1": "وطبعا عندك فت بدون لا",
+   "whisper_pass2_padded": "وطبعا عندك فت بدون لاشوف",
+   "script_text": "وعندك «بدون لا أشوف»!",
+   "whisper_turbo_check": "وطبعا عندك فات بدون العشوف",
+   "heard_variant": "وطبعاً عندك فئة «بدون لا أشوف»!",
+   "screen_text_status": "heard_adopted",
+   "screen_text": "وطبعاً عندك فئة «بدون لا أشوف»!",
+   "score_margin_nats": {
+    "turbo": 13.71,
+    "large-v3": 11.03
+   },
+   "vad_enhanced": [
+    21.962,
+    23.878
+   ]
+  },
+  {
+   "id": 13,
+   "start": 24.55,
+   "end": 26.69,
+   "section": "blind",
+   "whisper_pass1": "أنت و واحد من رابعك تمسحون",
+   "whisper_pass2_padded": "أنت و واحد من رابعك تمسحون الكيوار كود",
+   "script_text": "أنت وواحد من ربعك تمسحون الـQR،",
+   "whisper_turbo_check": "و واحد من رابعك تمسحون الـ QR Code",
+   "heard_variant": "أنت وواحد من ربعك تمسحون الـQR Code،",
+   "screen_text_status": "heard_adopted",
+   "screen_text": "أنت وواحد من ربعك تمسحون الـQR Code،",
+   "score_margin_nats": {
+    "turbo": 6.64,
+    "large-v3": 4.89
+   },
+   "vad_enhanced": [
+    24.554,
+    26.822
+   ]
+  },
+  {
+   "id": 14,
+   "start": 27.18,
+   "end": 29.16,
+   "section": "blind",
+   "whisper_pass1": "وكل واحد يوجه شاشة التليف",
+   "whisper_pass2_padded": "وكل واحد يوجه شاشة التليفون للثاني",
+   "script_text": "وكل واحد يوجّه شاشة تلفونه للثاني،",
+   "whisper_turbo_check": "وكل واحد يوجه شاشة التلفون للثاني",
+   "heard_variant": "وكل واحد يوجّه شاشة التلفون للثاني،",
+   "screen_text_status": "user_confirmed_spoken",
+   "screen_text": "وكل واحد يوجّه شاشة تليفونه للثاني،",
+   "score_margin_nats": {
+    "turbo": 2.04,
+    "large-v3": 1.27
+   },
+   "note": "2026-10-09: المستخدم أكّد أنه قال «تليفونه» في التسجيل، فيُعرض «تليفونه». (المقارنة الآلية بين «تلفونه» و«التلفون» كانت غير حاسمة.)",
+   "vad_enhanced": [
+    27.146,
+    29.19
+   ]
+  },
+  {
+   "id": 15,
+   "start": 29.58,
+   "end": 30.53,
+   "section": "blind",
+   "whisper_pass1": "بدون ما اشوف ش",
+   "whisper_pass2_padded": "بدون ما نرى ما رأى عليه",
+   "script_text": "بدون ما يشوف شنو طلع له.",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "بدون ما يشوف شنو طلع له.",
+   "vad_enhanced": [
+    29.578,
+    30.566
+   ]
+  },
+  {
+   "id": 16,
+   "start": 31.82,
+   "end": 33.7,
+   "section": "blind",
+   "whisper_pass1": "تسألون أسئلة إجاب",
+   "whisper_pass2_padded": "تسألون أسأل إجابتها نعم أو لا",
+   "script_text": "تسألون أسئلة إجابتها نعم أو لا…",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تسألون أسئلة إجابتها نعم أو لا…",
+   "vad_enhanced": [
+    31.818,
+    33.798
+   ]
+  },
+  {
+   "id": 17,
+   "start": 34.25,
+   "end": 36.1,
+   "section": "blind",
+   "whisper_pass1": "لين تعرفون شنو الشي اللي",
+   "whisper_pass2_padded": "لين تعرفون شنو الشي اللي عندكم؟",
+   "script_text": "لين تعرفون شنو الشي اللي عندكم!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "لين تعرفون شنو الشي اللي عندكم!",
+   "vad_enhanced": [
+    34.25,
+    36.134
+   ]
+  },
+  {
+   "id": 18,
+   "start": 37.42,
+   "end": 38.66,
+   "section": "movies",
+   "whisper_pass1": "أتعب فيلم وتقول",
+   "whisper_pass2_padded": "أتعب فيلم وتقول حافظة",
+   "script_text": "تحب فيلم وتقول حافظه؟",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "تحب فيلم وتقول حافظه؟",
+   "vad_enhanced": [
+    37.418,
+    38.694
+   ]
+  },
+  {
+   "id": 19,
+   "start": 39.21,
+   "end": 40.45,
+   "section": "movies",
+   "whisper_pass1": "فانوس موووو",
+   "whisper_pass2_padded": "فانوس مووويز",
+   "script_text": "«فانوس Movies»",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "«فانوس Movies»",
+   "vad_enhanced": [
+    39.178,
+    40.454
+   ]
+  },
+  {
+   "id": 20,
+   "start": 40.84,
+   "end": 43.43,
+   "section": "movies",
+   "whisper_pass1": "يتحدىك بسأله عن الفيلم نفسه",
+   "whisper_pass2_padded": "يتحدىك بسألة عن الفيلم نفسه واحداه",
+   "script_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "يتحدّاك بأسئلة عن الفيلم نفسه وأحداثه!",
+   "vad_enhanced": [
+    40.842,
+    43.494
+   ]
+  },
+  {
+   "id": 21,
+   "start": 44.27,
+   "end": 45.57,
+   "section": "kids",
+   "whisper_pass1": "والصغار لهم مناست",
+   "whisper_pass2_padded": "والصغار لهم وناستهم بعد",
+   "script_text": "والصغار لهم وناستهم بعد،",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "والصغار لهم وناستهم بعد،",
+   "vad_enhanced": [
+    44.266,
+    45.702
+   ]
+  },
+  {
+   "id": 22,
+   "start": 46.38,
+   "end": 49.09,
+   "section": "kids",
+   "whisper_pass1": "مع فئات ممتعة وتفاعليه في فانوس",
+   "whisper_pass2_padded": "مع فئات ممتعة وتفاعلية في فانوس كيز",
+   "script_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "مع فئات ممتعة وتفاعلية في «فانوس Kids»!",
+   "vad_enhanced": [
+    46.378,
+    49.126
+   ]
+  },
+  {
+   "id": 23,
+   "start": 49.83,
+   "end": 50.98,
+   "section": "outro",
+   "whisper_pass1": "يمع رابعك وه",
+   "whisper_pass2_padded": "يمع ربعك وهلك",
+   "script_text": "جمّع ربعك وأهلك،",
+   "whisper_turbo_check": "يمع ربعك وهلك",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "جمّع ربعك وأهلك،",
+   "vad_enhanced": [
+    49.834,
+    51.014
+   ]
+  },
+  {
+   "id": 24,
+   "start": 51.27,
+   "end": 52.13,
+   "section": "outro",
+   "whisper_pass1": "وخلي التحدي",
+   "whisper_pass2_padded": "وخلي التحدي يبدأ",
+   "script_text": "وخلّ التحدّي يبدأ!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "وخلّ التحدّي يبدأ!",
+   "vad_enhanced": [
+    51.274,
+    52.23
+   ]
+  },
+  {
+   "id": 25,
+   "start": 52.94,
+   "end": 54.21,
+   "section": "outro",
+   "whisper_pass1": "حمل تطبيق فانوس",
+   "whisper_pass2_padded": "حمل تطبيق فانوس",
+   "script_text": "حمّل تطبيق فانوس!",
+   "screen_text_status": "script_confirmed",
+   "screen_text": "حمّل تطبيق فانوس!",
+   "vad_enhanced": [
+    52.938,
+    54.246
+   ]
+  }
+ ],
+ "context_chunks_pass": [
+  {
+   "start": 1.0,
+   "end": 23.88,
+   "text": "هناك أحدكم لا يعرف السلفة فقط يمثل أنه فاهم هل يمكنكم تكشفه؟ هذه لعبة في فانوس تمسحون الـ QR كود وكل واحد يعرف ما الذي أصبحت إلا واحد تبدأ جولة الأسئلة وكل جواب يزيد الشك وبعدها التصويت من هو المبنى؟ يمكن أن أقرب واحد لك يقص عليك وطبعاً لديك فئة بدون أن أرى"
+  },
+  {
+   "start": 24.55,
+   "end": 49.09,
+   "text": "أنت وواحد من رابعك تمسحون الـ QR كود وكل واحد يوجه شاشة التليفون للثاني بدون ما يشوف شو نطلع عليه تسألون أسأل إجابتها نعم أو لا لين تعرفون شنو الشي اللي عندكم أتعب فيلم وتقول حافظة فانوس موفيز يتحداك بأسألة عن الفيلم نفسه وأحداه والصغار لهم مناستهم بعد مع فئات ممتعة وتفاعلية في"
+  },
+  {
+   "start": 49.83,
+   "end": 54.21,
+   "text": "يمع رابعك وأهلك وخلي التحدي يبدأ حمل تطبيق فان"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "lag_samples": -1,
+ "vad_phrases_old": 25,
+ "vad_phrases_new": 25,
+ "max_boundary_shift_s": 0.156,
+ "loudness_original": {
+  "I": -17.92,
+  "TP": 0.06
+ },
+ "loudness_enhanced": {
+  "I": -14.05,
+  "TP": -1.68
+ },
+ "duration_s": 55.744,
+ "local_fix": {
+  "vowel": [
+   7.28,
+   7.5,
+   3.0
+  ],
+  "sin": [
+   7.51,
+   7.67,
+   -4.0
+  ]
+ },
+ "chain": "adeclip,highpass=f=70:poles=2,deesser=i=0.3:m=0.5:f=0.5,acompressor=threshold=-20dB:ratio=2:attack=10:release=150:knee=6"
+}

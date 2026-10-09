@@ -1,8 +1,9 @@
 {
- "_source": "Two WhatsApp zips sent 2026-10-09 ~1:30 AM. Files renamed in capture order (WhatsApp suffix order: none, (1), (2)...). Stills, not recordings. Kept outside the public repo. Third batch (C01–C06): two WhatsApp zips sent 2026-10-09 ~2:21 AM.",
+ "_source": "Two WhatsApp zips sent 2026-10-09 ~1:30 AM. Files renamed in capture order (WhatsApp suffix order: none, (1), (2)...). Stills, not recordings. Kept outside the public repo. Third batch (C01–C06): two WhatsApp zips sent 2026-10-09 ~2:21 AM. Fourth batch (D01–D04): WhatsApp zip sent 2026-10-09 ~3:58 AM, one category page per section, used for the four section tiles in S19.",
  "_crop_notes": {
   "A (phone, 943x2048 portrait, alfanous.app in mobile Safari)": "crop iOS status bar + 'الكاميرا' back-link (top ~130px) and Safari bottom bar with URL (bottom ~210px); keep the in-app small round Fanous logo",
-  "B (host screen, 2048x943 landscape)": "full frame usable; app header + board/question card"
+  "B (host screen, 2048x943 landscape)": "full frame usable; app header + board/question card",
+  "D (section pages, 2048x943 landscape)": "S19 tiles: rows 0–900 (above the Movies price pills at y>=913), full width for V1 tiles (aspect 2.28), centred 1382x900 for V2 tiles (aspect 1.54); resampled to 2x tile size, never stretched"
  },
  "app_flow_learned": [
   "Impostor and 'بدون لا أشوف' are question cards inside the team board game (B01): the host screen shows a QR card, players scan it and continue on a phone in the browser.",
@@ -151,5 +152,23 @@
   "B02": "1 real QR (decoded by zxing-cpp)",
   "B04": "2 real QRs (decoded)",
   "treatment": "replaced in assets by non-scannable 11x11 pixel art (scripts/storyboard/qr_pixel.py); verified: 0 detected / 0 decoded on assets and on all 40 storyboard frames (OpenCV + zxing-cpp)"
- }
+ },
+ "section_pages_host": [
+  {
+   "id": "D01",
+   "screen": "Impostor category page (purple header, pill «امبوستر»): row 1 حيوانات / اماكن / اكلات / دول / عام with red «امبوستر» badges; row 2 One Piece / Anime / العاب / لاعبين كرة قدم / سيارات (partial)"
+  },
+  {
+   "id": "D02",
+   "screen": "«بدون لا اشوف» category page (purple header, pill «بدون لا اشوف»): row 1 لاعبين كرة قدم / سيارات / اكلات / دول / عام with green «بدون لا اشوف» badges; row 2 WWE / Naruto / One Piece / العاب (partial)"
+  },
+  {
+   "id": "D03",
+   "screen": "Movies mode page (red header, dark red background, pill «عام»): posters Interstellar / Dictator / V For Vendetta (from the Fanous UI); price pills «1.00 KWD» start at y=913 and are cropped away (no prices)"
+  },
+  {
+   "id": "D04",
+   "screen": "Kids mode page (blue header, light blue background, pill «عام»): row 1 منو اللاعب كرة / فواكة وخضراوات / حيوانات / ولا كلمة حيوانات / اعلام الدول; row 2 دين / لغة عربية / ضرب وقسمة / كرتون / ولا كلمة عام (partial)"
+  }
+ ]
 }

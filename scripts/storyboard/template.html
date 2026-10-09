@@ -177,7 +177,7 @@ function render(sc, v, opts) {
   if (L === 'tiles') {
     for (const t of sc.tiles) {
       const [x, y, w, h] = V1 ? t.boxV1 : t.box;
-      f.appendChild($(`<div class="tile" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><img src="assets/${t.img}" style="object-position:${t.pos || 'center'}"><em>${t.label}</em></div>`));
+      f.appendChild($(`<div class="tile" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><img src="assets/${V1 ? (t.imgV1 || t.img) : t.img}" style="object-position:${t.pos || 'center'}"><em>${t.label}</em></div>`));
     }
     if (V1) {
       f.appendChild($(`<div class="bubble" style="top:250px;font-size:60px">${hl(sc.cap)}</div>`));

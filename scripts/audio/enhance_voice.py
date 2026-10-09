@@ -1,18 +1,20 @@
 """Light voice enhancement (user request 2026-10-09). The original file is
 never modified; outputs go to media/derived/.
 
-1. Local treatment of «في فانوس!» in phrase 4 (~7.3–7.67 s): a small level
-   lift on the short vowel and a gentle de-ess of the final «س». Gains use
-   raised-cosine ramps; filtering is zero-phase, so nothing moves in time.
-   This cannot restore voicing: the measured problem there is in delivery.
-2. Global chain (ffmpeg): adeclip (two clipped spots at 1.15 s / 3.13 s),
-   70 Hz high-pass, light de-esser, gentle 2:1 compression, static gain to
-   -14 LUFS and a true-peak limiter at -1.5 dBTP with latency compensation.
+1. Local fixes, only for the recording they were measured on (LOCAL_FIXES,
+   keyed by source file): for the first recording, «في فانوس!» in phrase 4
+   (~7.3–7.67 s) got a small lift on the short vowel and a gentle de-ess of
+   the final «س». The second recording (re-recorded by the user) has none.
+   Gains use raised-cosine ramps; filtering is zero-phase, nothing moves.
+2. Global chain (ffmpeg, approved 2026-10-09): adeclip, 70 Hz high-pass,
+   light de-esser, gentle 2:1 compression, static gain to -14 LUFS and a
+   true-peak limiter at -1.5 dBTP with latency compensation.
    No time-stretch, no pitch change, no generated audio.
 3. Checks: lag between original and output by cross-correlation (must be 0),
-   and Silero VAD phrase boundaries recomputed on the output (must match).
+   duration unchanged, and Silero VAD segments recomputed on the output and
+   matched to the measured phrase segments (stored as vad_enhanced).
 
-Usage: enhance_voice.py <repo_root> <silero_vad.onnx>
+Usage: enhance_voice.py <repo_root> <silero_vad.onnx> <source audio> <out.wav>
 """
 import json
 import subprocess
@@ -22,15 +24,19 @@ import numpy as np
 import scipy.signal as ss
 import soundfile as sf
 
-root, vad_model = sys.argv[1], sys.argv[2]
-SRC = f"{root}/media/source/voice_2026-10-08_2307.m4a"
-DER = f"{root}/media/derived"
-TMP = f"{root}/renders/audio"
+import os
 
-LOCAL = {  # seconds, from the spectrogram/periodicity analysis of phrase 4
-    "vowel": (7.28, 7.50, +3.0),   # short, fading «انو»: lift +3 dB
-    "sin": (7.51, 7.67, -4.0),     # final «س»: -4 dB above 4 kHz
+root, vad_model, SRC, OUT = sys.argv[1:5]
+TMP = f"{root}/renders/audio"
+os.makedirs(TMP, exist_ok=True)
+
+LOCAL_FIXES = {  # seconds, from the spectrogram/periodicity analysis of phrase 4
+    "voice_2026-10-08_2307.m4a": {
+        "vowel": (7.28, 7.50, +3.0),   # short, fading «انو»: lift +3 dB
+        "sin": (7.51, 7.67, -4.0),     # final «س»: -4 dB above 4 kHz
+    },
 }
+LOCAL = LOCAL_FIXES.get(os.path.basename(SRC), {})
 RAMP = 0.02
 
 
@@ -49,6 +55,8 @@ def ramp_window(n_total, sr, a, b):
 
 def local_fix(m, sr):
     out = m.copy()
+    if not LOCAL:
+        return out
     a, b, g = LOCAL["vowel"]
     out *= 10 ** (g / 20 * ramp_window(len(m), sr, a, b))
     a, b, g = LOCAL["sin"]
@@ -88,11 +96,36 @@ def vad_spans(wav16):
     return spans
 
 
+def match_segments(phrases, enh):
+    """Enhanced VAD segments per measured phrase segment. A segment keeps its
+    measured edge where one enhanced segment runs across a measured split
+    (phrases 10/11), so phrase splits never move."""
+    flat = [tuple(sg) for p in phrases for sg in p["vad_segments"]]
+    out, k = [], 0
+    for p in phrases:
+        segs = []
+        for a, b in p["vad_segments"]:
+            prev_end = flat[k - 1][1] if k else -1.0
+            next_start = flat[k + 1][0] if k + 1 < len(flat) else 1e9
+            ov = [e for e in enh if e[1] > a and e[0] < b]
+            a2 = min(e[0] for e in ov) if ov else a
+            b2 = max(e[1] for e in ov) if ov else b
+            if a2 < prev_end:
+                a2 = a
+            if b2 > next_start:
+                b2 = b
+            segs.append([round(a2, 3), round(b2, 3)])
+            k += 1
+        out.append(segs)
+    return out
+
+
 if __name__ == "__main__":
     orig = f"{TMP}/voice_orig_48k.wav"
     run(["ffmpeg", "-v", "error", "-y", "-i", SRC, "-c:a", "pcm_f32le", orig])
     x, sr = sf.read(orig, dtype="float64")
-    m = x[:, 0]  # the file is dual-mono (L == R)
+    assert np.allclose(x[:, 0], x[:, 1]), "expected dual-mono source"
+    m = x[:, 0]
     fixed = local_fix(m, sr)
     sf.write(f"{TMP}/stage1_local.wav", fixed, sr, subtype="FLOAT")
 
@@ -102,35 +135,40 @@ if __name__ == "__main__":
     # dual-mono like the original (both channels at full level), static gain to
     # -14 LUFS, true-peak safety limiter (-1.8 dBFS sample peak); passes to land on the target
     gain = 0.0
-    for _ in range(3):
+    for _ in range(4):
         run(["ffmpeg", "-v", "error", "-y", "-i", f"{TMP}/stage2.wav", "-af",
              f"pan=stereo|c0=c0|c1=c0,volume={gain:.2f}dB,alimiter=limit=0.81:attack=5:release=50:level=0:latency=1",
-             "-c:a", "pcm_f32le", f"{DER}/voice_enhanced_v1.wav"])
-        i_now, tp_now = loudness(f"{DER}/voice_enhanced_v1.wav")
+             "-c:a", "pcm_f32le", OUT])
+        i_now, tp_now = loudness(OUT)
         if abs(i_now + 14.0) < 0.2:
             break
         gain += -14.0 - i_now
 
     # checks
-    y, _ = sf.read(f"{DER}/voice_enhanced_v1.wav", dtype="float64")
-    a = np.abs(m[: sr * 20])
-    b = np.abs(y[: sr * 20, 0])
-    lag = int(np.argmax(ss.correlate(b - b.mean(), a - a.mean(), mode="full", method="fft")) - (len(a) - 1))
-    run(["ffmpeg", "-v", "error", "-y", "-i", f"{DER}/voice_enhanced_v1.wav", "-ac", "1", "-ar", "16000", f"{TMP}/enh16k.wav"])
-    new = vad_spans(f"{TMP}/enh16k.wav")
-    old = [(p["start"], p["end"]) for p in json.load(open(f"{root}/analysis/transcript.json"))["phrases"]]
-    d = max(max(abs(p[0] - q[0]), abs(p[1] - q[1])) for p, q in zip(old, new)) if len(new) == len(old) else None
-    li, ltp = loudness(f"{DER}/voice_enhanced_v1.wav")
-    oi, otp = loudness(orig)
+    y, _ = sf.read(OUT, dtype="float64")
+    lags = []
+    for t0 in range(0, int(len(m) / sr) - 10, 10):  # every 10 s window, not only the start
+        a = np.abs(m[sr * t0: sr * (t0 + 10)])
+        b = np.abs(y[sr * t0: sr * (t0 + 10), 0])
+        lags.append(int(np.argmax(ss.correlate(b - b.mean(), a - a.mean(), mode="full", method="fft")) - (len(a) - 1)))
+    run(["ffmpeg", "-v", "error", "-y", "-i", OUT, "-ac", "1", "-ar", "16000", f"{TMP}/enh16k.wav"])
+    enh = vad_spans(f"{TMP}/enh16k.wav")
     tr_path = f"{root}/analysis/transcript.json"
     tr = json.load(open(tr_path))
-    if len(new) == len(tr["phrases"]):
-        for p, q in zip(tr["phrases"], new):
-            p["vad_enhanced"] = [round(q[0], 3), round(q[1], 3)]
-        json.dump(tr, open(tr_path, "w"), ensure_ascii=False, indent=1)
-    rep = {"lag_samples": lag, "vad_phrases_old": len(old), "vad_phrases_new": len(new),
-           "max_boundary_shift_s": None if d is None else round(d, 3),
+    matched = match_segments(tr["phrases"], enh)
+    shifts = [(round(n[0] - o[0], 3), round(n[1] - o[1], 3))
+              for p, segs in zip(tr["phrases"], matched) for o, n in zip(p["vad_segments"], segs)]
+    for p, segs in zip(tr["phrases"], matched):
+        p["vad_enhanced"] = segs
+    json.dump(tr, open(tr_path, "w"), ensure_ascii=False, indent=1)
+    li, ltp = loudness(OUT)
+    oi, otp = loudness(orig)
+    rep = {"source": os.path.basename(SRC), "output": os.path.relpath(OUT, root),
+           "lag_samples_per_10s": lags, "duration_in_s": round(len(m) / sr, 6), "duration_out_s": round(len(y) / sr, 6),
+           "vad_segments_measured": sum(len(p["vad_segments"]) for p in tr["phrases"]), "vad_segments_enhanced": len(enh),
+           "start_shift_max_s": max(abs(s[0]) for s in shifts), "end_shift_max_s": max(abs(s[1]) for s in shifts),
+           "end_shift_max_later_s": max(s[1] for s in shifts),
            "loudness_original": {"I": oi, "TP": otp}, "loudness_enhanced": {"I": li, "TP": ltp},
-           "duration_s": round(len(y) / sr, 3), "local_fix": LOCAL, "chain": chain}
+           "local_fix": LOCAL, "chain": chain}
     json.dump(rep, open(f"{root}/analysis/audio_enhance_report.json", "w"), ensure_ascii=False, indent=1)
     print(json.dumps(rep, ensure_ascii=False, indent=1))

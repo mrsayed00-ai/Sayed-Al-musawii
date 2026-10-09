@@ -1,129 +1,284 @@
 {
- "_method": "Teacher-forced log P(text|audio) per candidate wording (scripts/asr_score.py). margin = heard - script in nats; >~5 = decisive, ~1-2 = not decisive (language-model prior can explain it).",
- "scores": {
-  "turbo": {
-   "5": {
+ "_recording": "media/source/voice_2026-10-09_0349.m4a",
+ "_method": "teacher-forced Whisper log P(text|audio), best spelling per wording; margin_over_next in nats (>~5 decisive)",
+ "large-v3": {
+  "5": {
+   "window": [
+    8.84,
+    12.04
+   ],
+   "cands": {
     "script": {
-     "logp": -31.56,
-     "tokens": 19,
-     "per_token": -1.661,
-     "text": "تمسحون ال QR الكل يعرف الشي اللي طلع له"
-    },
-    "heard": {
-     "logp": -7.23,
-     "tokens": 26,
-     "per_token": -0.278,
-     "text": "تمسحون ال QR كود وكل واحد يعرف شنو الشي اللي طلع له"
-    },
-    "margin_heard_minus_script": 24.33
-   },
-   "12": {
-    "script": {
-     "logp": -21.91,
-     "tokens": 11,
-     "per_token": -1.992,
-     "text": "وعندك بدون لا أشوف"
-    },
-    "heard": {
-     "logp": -8.2,
-     "tokens": 17,
-     "per_token": -0.482,
-     "text": "وطبعا عندك فئة بدون لا أشوف"
-    },
-    "margin_heard_minus_script": 13.71
-   },
-   "13": {
-    "script": {
-     "logp": -20.82,
-     "tokens": 18,
-     "per_token": -1.157,
-     "text": "أنت وواحد من ربعك تمسحون الـ QR"
-    },
-    "heard": {
-     "logp": -14.18,
-     "tokens": 19,
-     "per_token": -0.746,
-     "text": "أنت وواحد من ربعك تمسحون الـ QR Code"
-    },
-    "margin_heard_minus_script": 6.64
-   },
-   "14": {
-    "script": {
-     "logp": -5.42,
+     "logp": -16.61,
      "tokens": 20,
-     "per_token": -0.271,
-     "text": "وكل واحد يوجه شاشة تليفونه للثاني"
+     "per_token": -0.831,
+     "text": "تمسحون الـ QR الكل يعرف الشي اللي طلع له"
     },
-    "heard": {
-     "logp": -3.38,
-     "tokens": 19,
-     "per_token": -0.178,
-     "text": "وكل واحد يوجه شاشة التليفون للثاني"
+    "code_walkull": {
+     "logp": -7.82,
+     "tokens": 21,
+     "per_token": -0.372,
+     "text": "تمسحون الـ QR Code والكل يعرف الشي اللي طلع له"
     },
-    "margin_heard_minus_script": 2.04
-   }
-  },
-  "large-v3": {
-   "5": {
-    "script": {
-     "logp": -30.54,
-     "tokens": 19,
-     "per_token": -1.607,
-     "text": "تمسحون ال QR الكل يعرف الشي اللي طلع له"
-    },
-    "heard": {
-     "logp": -9.3,
+    "rec1_wording": {
+     "logp": -41.28,
      "tokens": 26,
-     "per_token": -0.358,
+     "per_token": -1.588,
      "text": "تمسحون الـ QR Code وكل واحد يعرف شنو الشي اللي طلع له"
-    },
-    "margin_heard_minus_script": 21.24
+    }
    },
-   "12": {
+   "best": "code_walkull",
+   "margin_over_next": 8.79
+  },
+  "12": {
+   "window": [
+    23.4,
+    24.81
+   ],
+   "cands": {
     "script": {
-     "logp": -17.25,
+     "logp": -0.99,
      "tokens": 11,
-     "per_token": -1.568,
+     "per_token": -0.09,
      "text": "وعندك بدون لا اشوف"
     },
-    "heard": {
-     "logp": -6.22,
+    "rec1_wording": {
+     "logp": -32.28,
      "tokens": 17,
-     "per_token": -0.366,
+     "per_token": -1.899,
      "text": "وطبعا عندك فئة بدون لا أشوف"
-    },
-    "margin_heard_minus_script": 11.03
+    }
    },
-   "13": {
-    "script": {
-     "logp": -16.82,
-     "tokens": 18,
-     "per_token": -0.934,
-     "text": "أنت وواحد من ربعك تمسحون الـ QR"
-    },
-    "heard": {
-     "logp": -11.93,
+   "best": "script",
+   "margin_over_next": 31.29
+  },
+  "13": {
+   "window": [
+    25.45,
+    28.04
+   ],
+   "cands": {
+    "with_code": {
+     "logp": -6.27,
      "tokens": 19,
-     "per_token": -0.628,
+     "per_token": -0.33,
      "text": "أنت وواحد من ربعك تمسحون الـ QR Code"
     },
-    "margin_heard_minus_script": 4.89
-   },
-   "14": {
     "script": {
-     "logp": -3.68,
+     "logp": -8.45,
+     "tokens": 18,
+     "per_token": -0.47,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR"
+    }
+   },
+   "best": "with_code",
+   "margin_over_next": 2.18
+  },
+  "14": {
+   "window": [
+    28.55,
+    30.6
+   ],
+   "cands": {
+    "tilifoonah": {
+     "logp": -2.64,
      "tokens": 20,
-     "per_token": -0.184,
+     "per_token": -0.132,
      "text": "وكل واحد يوجه شاشة تليفونه للثاني"
     },
-    "heard": {
-     "logp": -2.41,
+    "al_tilifoon": {
+     "logp": -3.54,
      "tokens": 19,
-     "per_token": -0.127,
+     "per_token": -0.186,
      "text": "وكل واحد يوجه شاشة التليفون للثاني"
+    }
+   },
+   "best": "tilifoonah",
+   "margin_over_next": 0.9
+  },
+  "15": {
+   "window": [
+    31.5,
+    32.68
+   ],
+   "cands": {
+    "script_lah": {
+     "logp": -3.08,
+     "tokens": 14,
+     "per_token": -0.22,
+     "text": "بدون ما يشوف شنو طلع له"
     },
-    "margin_heard_minus_script": 1.27
-   }
+    "alayh": {
+     "logp": -2.64,
+     "tokens": 14,
+     "per_token": -0.188,
+     "text": "بدون ما يشوف شنو طلع عليه"
+    }
+   },
+   "best": "alayh",
+   "margin_over_next": 0.44
+  },
+  "24": {
+   "window": [
+    54.54,
+    55.69
+   ],
+   "cands": {
+    "script_khal": {
+     "logp": -1.18,
+     "tokens": 10,
+     "per_token": -0.118,
+     "text": "وخل التحدي يبدأ"
+    },
+    "khali": {
+     "logp": -1.4,
+     "tokens": 10,
+     "per_token": -0.14,
+     "text": "وخلي التحدي يبدأ"
+    }
+   },
+   "best": "script_khal",
+   "margin_over_next": 0.22
+  }
+ },
+ "turbo": {
+  "5": {
+   "window": [
+    8.84,
+    12.04
+   ],
+   "cands": {
+    "script": {
+     "logp": -19.76,
+     "tokens": 19,
+     "per_token": -1.04,
+     "text": "تمسحون ال QR الكل يعرف الشي اللي طلع له"
+    },
+    "code_walkull": {
+     "logp": -7.78,
+     "tokens": 21,
+     "per_token": -0.37,
+     "text": "تمسحون الـ QR Code والكل يعرف الشي اللي طلع له"
+    },
+    "rec1_wording": {
+     "logp": -41.79,
+     "tokens": 26,
+     "per_token": -1.607,
+     "text": "تمسحون الـ QR Code وكل واحد يعرف شنو الشي اللي طلع له"
+    }
+   },
+   "best": "code_walkull",
+   "margin_over_next": 11.98
+  },
+  "12": {
+   "window": [
+    23.4,
+    24.81
+   ],
+   "cands": {
+    "script": {
+     "logp": -1.1,
+     "tokens": 11,
+     "per_token": -0.1,
+     "text": "وعندك بدون لا أشوف"
+    },
+    "rec1_wording": {
+     "logp": -40.3,
+     "tokens": 17,
+     "per_token": -2.371,
+     "text": "وطبعا عندك فئة بدون لا أشوف"
+    }
+   },
+   "best": "script",
+   "margin_over_next": 39.2
+  },
+  "13": {
+   "window": [
+    25.45,
+    28.04
+   ],
+   "cands": {
+    "with_code": {
+     "logp": -10.06,
+     "tokens": 19,
+     "per_token": -0.53,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR Code"
+    },
+    "script": {
+     "logp": -16.76,
+     "tokens": 18,
+     "per_token": -0.931,
+     "text": "أنت وواحد من ربعك تمسحون الـ QR"
+    }
+   },
+   "best": "with_code",
+   "margin_over_next": 6.7
+  },
+  "14": {
+   "window": [
+    28.55,
+    30.6
+   ],
+   "cands": {
+    "tilifoonah": {
+     "logp": -3.34,
+     "tokens": 20,
+     "per_token": -0.167,
+     "text": "وكل واحد يوجه شاشة تليفونه للثاني"
+    },
+    "al_tilifoon": {
+     "logp": -5.26,
+     "tokens": 19,
+     "per_token": -0.277,
+     "text": "وكل واحد يوجه شاشة التليفون للثاني"
+    }
+   },
+   "best": "tilifoonah",
+   "margin_over_next": 1.92
+  },
+  "15": {
+   "window": [
+    31.5,
+    32.68
+   ],
+   "cands": {
+    "script_lah": {
+     "logp": -3.69,
+     "tokens": 14,
+     "per_token": -0.263,
+     "text": "بدون ما يشوف شنو طلع له"
+    },
+    "alayh": {
+     "logp": -4.82,
+     "tokens": 14,
+     "per_token": -0.344,
+     "text": "بدون ما يشوف شنو طلع عليه"
+    }
+   },
+   "best": "script_lah",
+   "margin_over_next": 1.13
+  },
+  "24": {
+   "window": [
+    54.54,
+    55.69
+   ],
+   "cands": {
+    "script_khal": {
+     "logp": -3.7,
+     "tokens": 10,
+     "per_token": -0.37,
+     "text": "وخل التحدي يبدأ"
+    },
+    "khali": {
+     "logp": -1.41,
+     "tokens": 10,
+     "per_token": -0.141,
+     "text": "وخلي التحدي يبدأ"
+    }
+   },
+   "best": "khali",
+   "margin_over_next": 2.29
   }
  }
 }

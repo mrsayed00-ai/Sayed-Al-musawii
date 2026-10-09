@@ -1,6 +1,7 @@
 // Render the animated previews (V1 + V2) frame by frame with Playwright, then
 // mux with the voice using ffmpeg.
-// Usage: NODE_PATH=<global node_modules> node render_video.js <repo_root> [--test t1,t2,...] [--scale 0.5] [--audio <wav>]
+// Usage: NODE_PATH=<global node_modules> node render_video.js <repo_root> [--test t1,t2,...] [--scale 0.5] [--audio <wav>] [--only V1|V2]
+// --scale 1 writes the 1080x1920 export to renders/final/, smaller scales write previews to renders/video/.
 const fs = require('fs');
 const path = require('path');
 const { execFileSync } = require('child_process');
@@ -10,7 +11,9 @@ const root = process.argv[2];
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const testTimes = arg('--test', null);
 const scale = parseFloat(arg('--scale', '0.5'));
-const audio = arg('--audio', path.join(root, 'media', 'derived', 'voice_enhanced_v1.wav'));
+const audio = arg('--audio', path.join(root, 'media', 'derived', 'voice2_enhanced.wav'));
+const only = arg('--only', null);
+const FULL = scale === 1;
 const out = path.join(root, 'renders', 'video');
 const sbDir = path.join(root, 'renders', 'storyboard');
 const tl = JSON.parse(fs.readFileSync(path.join(out, 'timeline.json'), 'utf8'));
@@ -33,7 +36,7 @@ const anim = fs.readFileSync(path.join(__dirname, 'anim.js'), 'utf8');
 (async () => {
   const browser = await chromium.launch();
   const issues = [];
-  for (const version of ['V1', 'V2']) {
+  for (const version of ['V1', 'V2'].filter((v) => !only || v === only)) {
     const data = {
       version, fps: tl.fps, frames: tl.frames, cuts: tl.cuts, phrases: tl.phrases, captions: CAPTIONS,
       sceneWin: Object.fromEntries(tl.scenes.map((s) => [s.id, s])),
@@ -54,7 +57,7 @@ const anim = fs.readFileSync(path.join(__dirname, 'anim.js'), 'utf8');
       await page.evaluate((k) => window.renderFrame(k), i);
       await page.evaluate(() => Promise.all([...document.images].map((im) => im.complete ? 0 : new Promise((r) => { im.onload = im.onerror = r; }))));
       const name = testTimes ? `t${(i / tl.fps).toFixed(2)}.jpg` : `f${String(i).padStart(5, '0')}.jpg`;
-      await page.screenshot({ path: path.join(dir, name), type: 'jpeg', quality: 90 });
+      await page.screenshot({ path: path.join(dir, name), type: 'jpeg', quality: FULL ? 95 : 90 });
       if (i % 3 === 0) {
         // safe-zone check on settled frames (not during entrance animations)
         const t = i / tl.fps;
@@ -71,10 +74,15 @@ const anim = fs.readFileSync(path.join(__dirname, 'anim.js'), 'utf8');
     }
     await page.close();
     if (!testTimes) {
-      const mp4 = path.join(out, `preview_${version}.mp4`);
+      const finalDir = path.join(root, 'renders', 'final');
+      fs.mkdirSync(finalDir, { recursive: true });
+      const mp4 = FULL ? path.join(finalDir, `fanous_ad_${version}_1080x1920.mp4`) : path.join(out, `preview_${version}.mp4`);
+      const venc = FULL
+        ? ['-c:v', 'libx264', '-profile:v', 'high', '-preset', 'slow', '-crf', '17', '-maxrate', '16M', '-bufsize', '32M', '-pix_fmt', 'yuv420p']
+        : ['-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-pix_fmt', 'yuv420p'];
       execFileSync('ffmpeg', ['-v', 'error', '-y', '-framerate', String(tl.fps), '-i', path.join(dir, 'f%05d.jpg'), '-i', audio,
-        '-map', '0:v', '-map', '1:a', '-c:v', 'libx264', '-preset', 'medium', '-crf', '20', '-pix_fmt', 'yuv420p',
-        '-c:a', 'aac', '-b:a', '192k', '-t', String(tl.duration), '-movflags', '+faststart', mp4]);
+        '-map', '0:v', '-map', '1:a', ...venc, '-r', String(tl.fps),
+        '-c:a', 'aac', '-b:a', FULL ? '256k' : '192k', '-ar', '48000', '-t', String(tl.duration), '-movflags', '+faststart', mp4]);
       console.log('wrote', mp4);
     }
   }

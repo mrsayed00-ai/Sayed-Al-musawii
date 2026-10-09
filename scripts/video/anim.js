@@ -152,7 +152,7 @@
       sc.tiles.forEach((tl, n) => {
         const [x, y, w, h] = V1 ? tl.boxV1 : tl.box;
         const t0 = sc.start + 0.1 + n * 0.12;
-        if (t >= t0) f.appendChild($(`<div class="tile" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;${enter(t, t0, 0.35, 40)}"><img src="assets/${tl.img}" style="object-position:${tl.pos || 'center'}"><em>${latin(tl.label)}</em></div>`));
+        if (t >= t0) f.appendChild($(`<div class="tile" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;${enter(t, t0, 0.35, 40)}"><img src="assets/${V1 ? (tl.imgV1 || tl.img) : tl.img}" style="object-position:${tl.pos || 'center'}"><em>${latin(tl.label)}</em></div>`));
       });
       if (ph && DATA.captions[ph.id]) {
         const [c2, c1] = DATA.captions[ph.id];

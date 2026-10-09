@@ -1,6 +1,6 @@
 """Per-frame (30 fps) loudness envelope of the voice-over, normalised to the
 98th percentile. Used later to drive the pixel character's mouth (measured
-from the audio, not guessed). Usage: voice_envelope.py voice16k.wav out.json"""
+from the audio, not guessed). Usage: voice_envelope.py <voice 16 kHz wav> out.json"""
 import json
 import sys
 

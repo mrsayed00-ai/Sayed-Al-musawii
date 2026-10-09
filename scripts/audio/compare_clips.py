@@ -2,6 +2,8 @@
 Segments are loudness-matched to the enhanced clip so the comparison is not
 biased by "louder sounds better". Also writes a clip of phrase 4 for an
 optional re-record and a before/after spectrogram of «في فانوس!».
+First recording only (archived: media/derived/rec1/, renders/archive_rec1/audio/);
+the user re-recorded the whole voice-over afterwards.
 Usage: compare_clips.py <repo_root>"""
 import subprocess
 import sys
@@ -15,9 +17,9 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
 root = sys.argv[1]
-ORIG = f"{root}/renders/audio/voice_orig_48k.wav"
-ENH = f"{root}/media/derived/voice_enhanced_v1.wav"
-OUT = f"{root}/renders/audio"
+ORIG = f"{root}/renders/archive_rec1/audio/voice_orig_48k.wav"
+ENH = f"{root}/media/derived/rec1/voice_enhanced_v1.wav"
+OUT = f"{root}/renders/archive_rec1/audio"
 FONT = f"{root}/media/fonts/Cairo.ttf"
 o, sr = sf.read(ORIG, dtype="float64")
 e, _ = sf.read(ENH, dtype="float64")

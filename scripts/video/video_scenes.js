@@ -1,7 +1,16 @@
-// Video scenes: storyboard layouts plus timing (absolute seconds on the voice
-// timeline). Beats inside a phrase are visual pacing only; on-screen text
-// changes only at measured phrase starts.
+// Video scenes: storyboard layouts plus timing. Every time is derived from the
+// measured phrases of the current recording (analysis/transcript.json):
+// P(n) = start of phrase n, E(n) = its end, SEG(n, k) = start of its k-th VAD
+// segment, AT(n, f) = a fraction f into the phrase. Beats inside a phrase are
+// visual pacing only; on-screen text changes only at measured phrase starts.
 const base = Object.fromEntries(require('../storyboard/scenes.js').map((s) => [s.id, s]));
+const TR = require('../../analysis/transcript.json');
+const PH = Object.fromEntries(TR.phrases.map((p) => [p.id, p]));
+const P = (n) => PH[n].start;
+const E = (n) => PH[n].end;
+const SEG = (n, k) => PH[n].vad_segments[k][0];
+const AT = (n, f) => +(P(n) + f * (E(n) - P(n))).toFixed(3);
+const CUT = (a) => +((E(a) + P(a + 1)) / 2).toFixed(2); // mid-silence between phrase a and a+1
 
 const HOST = [60, 420, 960, 470];
 const PHONE_V2 = [316, 410, 448, 780];
@@ -14,42 +23,42 @@ const phone = (img, extra = {}) => ({ kind: 'phone', img, pos: 'top', ...extra }
 const host = (img, extra = {}) => ({ kind: 'host', img, ...extra });
 
 const V = {
-  S05: { stage: [host('G_26.5.png', { box: HOST }), phone('A01.png', { box: INSET, appear: 6.9 })] },
-  S06: { stage: [host('B02_pxqr.png', { box: HOST }), phone(null, { box: INSET, appear: 9.0, seq: [[9.0, 'A04.png'], [9.9, 'A05.png']] })] },
-  S07: { stage: [phone('A10.png', { box: PHONE_V2 })], stageV1: [phone('A10.png', { box: PHONE_V1 })], redflash: 11.43 },
-  S08: { stage: [phone('A11.png', { box: SIDE_V2 }), phone('A12.png', { box: PHONE_V2, appear: 13.3 })],
-         stageV1: [phone('A11.png', { box: SIDE_V1 }), phone('A12.png', { box: PHONE_V1, appear: 13.3 })],
-         meter: { from: 12.52, to: 15.27 } },
-  S09: { stage: [phone(null, { box: PHONE_V2, seq: [[15.69, 'A12.png'], [16.15, 'A13.png']] })],
-         stageV1: [phone(null, { box: PHONE_V1, seq: [[15.69, 'A12.png'], [16.15, 'A13.png']] })] },
-  S10: { stage: [phone('A14.png', { box: PHONE_V2, shake: [17.23, 18.09] })], stageV1: [phone('A14.png', { box: PHONE_V1, shake: [17.23, 18.09] })] },
-  S11: { stage: [phone('A15.png', { box: PHONE_V2 }), phone('A18.png', { box: SIDE_V2, appear: 20.23 })],
-         stageV1: [phone('A15.png', { box: PHONE_V1 }), phone('A18.png', { box: SIDE_V1, appear: 20.23 })] },
+  S05: { stage: [host('G_26.5.png', { box: HOST }), phone('A01.png', { box: INSET, appear: AT(4, 0.5) })] },
+  S06: { stage: [host('B02_pxqr.png', { box: HOST }), phone(null, { box: INSET, appear: SEG(5, 1), seq: [[SEG(5, 1), 'A04.png'], [AT(5, 0.72), 'A05.png']] })] },
+  S07: { stage: [phone('A10.png', { box: PHONE_V2 })], stageV1: [phone('A10.png', { box: PHONE_V1 })], redflash: P(6) },
+  S08: { stage: [phone('A11.png', { box: SIDE_V2 }), phone('A12.png', { box: PHONE_V2, appear: AT(7, 0.28) })],
+         stageV1: [phone('A11.png', { box: SIDE_V1 }), phone('A12.png', { box: PHONE_V1, appear: AT(7, 0.28) })],
+         meter: { from: P(7), to: E(7) } },
+  S09: { stage: [phone(null, { box: PHONE_V2, seq: [[P(8), 'A12.png'], [AT(8, 0.48), 'A13.png']] })],
+         stageV1: [phone(null, { box: PHONE_V1, seq: [[P(8), 'A12.png'], [AT(8, 0.48), 'A13.png']] })] },
+  S10: { stage: [phone('A14.png', { box: PHONE_V2, shake: [P(9), E(9)] })], stageV1: [phone('A14.png', { box: PHONE_V1, shake: [P(9), E(9)] })] },
+  S11: { stage: [phone('A15.png', { box: PHONE_V2 }), phone('A18.png', { box: SIDE_V2, appear: P(11) })],
+         stageV1: [phone('A15.png', { box: PHONE_V1 }), phone('A18.png', { box: SIDE_V1, appear: P(11) })] },
   S12: { stage: [host('G_25.3.png', { box: HOST })] },
   S13: { stage: [host('B04_pxqr.png', { box: HOST })] },
-  S14: { stage: [phone(null, { box: PHONE_V2, seq: [[27.18, 'C02.png'], [29.58, 'C01.png']] })],
-         stageV1: [phone(null, { box: PHONE_V1, seq: [[27.18, 'C02.png'], [29.58, 'C01.png']] })],
+  S14: { stage: [phone(null, { box: PHONE_V2, seq: [[P(14), 'C02.png'], [P(15), 'C01.png']] })],
+         stageV1: [phone(null, { box: PHONE_V1, seq: [[P(14), 'C02.png'], [P(15), 'C01.png']] })],
          // two pixel players facing each other, larger in the video (free space beside the phone)
          extrasV1: [{ type: 'blind', x: 52, y: 690, scale: 6 }],
          extrasV2: [{ type: 'blind', x: 18, y: 680, scale: 4.6 }] },
-  S15: { stage: [host(null, { box: HOST, seq: [[31.82, 'B04_pxqr.png'], [34.25, 'B05.png']] })], chipsUntil: 34.25 },
+  S15: { stage: [host(null, { box: HOST, seq: [[P(16), 'B04_pxqr.png'], [P(17), 'B05.png']] })], chipsUntil: P(17) },
   S16: { stage: [host('G_movies_noprice.png', { box: [60, 430, 960, 330], pos: 'top' })] },
-  S17: { stage: [host(null, { box: HOST, seq: [[40.84, 'C04.png'], [42.0, 'C05.png']] })] },
-  S18: { stage: [host(null, { box: HOST, seq: [[43.85, 'C03.png'], [46.38, 'G_33.5.png']] })] },
+  S17: { stage: [host(null, { box: HOST, seq: [[P(20), 'C04.png'], [AT(20, 0.45), 'C05.png']] })] },
+  S18: { stage: [host(null, { box: HOST, seq: [[CUT(20), 'C03.png'], [P(22), 'G_33.5.png']] })] },
 };
 
 // captions per phrase: V2 = full text with highlight markup (must equal
 // screen_text once markers are removed); V1 = keyword (a piece of it)
 const CAPTIONS = {
   4: ['هذي لعبة [[الأمبوستر]] في فانوس!', 'لعبة [[الأمبوستر]]'],
-  5: ['تمسحون الـ[[QR Code]]، وكل واحد يعرف شنو الشي اللي طلع له…', 'كل واحد يعرف [[شنو الشي]]'],
+  5: ['تمسحون الـ[[QR Code]]، والكل يعرف الشي اللي طلع له…', 'والكل يعرف [[الشي اللي طلع له]]'],
   6: [null, 'إلا [[واحد!]]'],
   7: ['تبدأ جولة الأسئلة، وكل جواب [[يزيد الشك.]]', 'كل جواب [[يزيد الشك]]'],
   8: ['وبعدها [[التصويت…]]', 'وبعدها [[التصويت…]]'],
   9: [null, 'منو [[الأمبوستر؟]]'],
   10: ['يمكن [[أقرب واحد لك]]', 'يمكن [[أقرب واحد لك]]'],
   11: ['[[قاعد يقص عليك!]]', '[[قاعد يقص عليك!]]'],
-  12: ['وطبعاً عندك فئة [[«بدون لا أشوف»!]]', 'فئة [[«بدون لا أشوف»]]'],
+  12: ['وعندك [[«بدون لا أشوف»!]]', '[[«بدون لا أشوف»!]]'],
   13: ['أنت وواحد من ربعك تمسحون الـ[[QR Code]]،', 'تمسحون الـ[[QR Code]]'],
   14: ['وكل واحد يوجّه [[شاشة تليفونه]] للثاني،', 'يوجّه [[شاشة تليفونه]] للثاني،'],
   15: ['[[بدون ما يشوف]] شنو طلع له.', '[[بدون ما يشوف]] شنو طلع له.'],
