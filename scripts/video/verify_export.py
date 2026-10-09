@@ -72,7 +72,12 @@ for v in ("V1", "V2"):
     res = out[:m] - g * new[:m]
     r_old, lag_old = xcorr(out, old)
     i_lufs, tp = loud(mp4)
-    full, _ = sf.read(NEW, dtype="float32")
+    # clipping on the native stereo decode (an ffmpeg -ac 1 fold-down of
+    # dual-mono adds ~3 dB and would report false clips)
+    st = f"{root}/renders/final/_st.wav"
+    run(["ffmpeg", "-v", "error", "-y", "-i", mp4, "-vn", "-c:a", "pcm_f32le", st])
+    xs, _ = sf.read(st, dtype="float64")
+    os.remove(st)
     rep = {
         "video": f'{vs["codec_name"]} {vs.get("profile")} {vs["width"]}x{vs["height"]} {vs["pix_fmt"]} {vs["r_frame_rate"]} fps, {int(vs.get("bit_rate", 0)) / 1e6:.1f} Mb/s',
         "audio": f'{as_["codec_name"]} {as_["sample_rate"]} Hz {as_["channels"]} ch {int(as_.get("bit_rate", 0)) / 1e3:.0f} kb/s',
@@ -82,7 +87,8 @@ for v in ("V1", "V2"):
         "vs_new_voice": {"xcorr": round(r_new, 4), "lag_samples_16k": lag_new,
                          "residual_db_below_voice": round(10 * np.log10((new[:m] ** 2).sum() / (res ** 2).sum()), 1)},
         "vs_first_recording": {"max_abs_xcorr_any_lag": round(abs(r_old), 4), "at_lag_s": round(lag_old / SR, 2)},
-        "loudness": {"I_LUFS": i_lufs, "TP_dBTP": tp, "clipped_samples": int((np.abs(out) >= 0.999).sum())},
+        "loudness": {"I_LUFS": i_lufs, "TP_dBTP": tp, "sample_peak": round(float(np.abs(xs).max()), 4),
+                     "clipped_samples": int((np.abs(xs) >= 0.999).sum())},
     }
     # frames from the file itself: QR check every 10th frame, sheet at phrases and cuts
     fdir = f"{root}/renders/final/check_{v}"

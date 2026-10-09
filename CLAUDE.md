@@ -378,7 +378,7 @@
   - ترجمة تظهر عند بداية العبارة المقاسة فقط.
 - `scripts/video/render_video.js`: يلتقط الإطارات بـ Playwright ثم يجمعها مع الصوت المحسّن الجديد (`voice2_enhanced.wav`) بـ ffmpeg.
   - `--scale 1` يصدّر 1080×1920 إلى `renders/final/`:
-    - الفيديو H.264 High، CRF 17، بحدّ أقصى 16 Mb/s.
+    - الفيديو H.264 High، CRF 10، بحدّ أقصى 16 Mb/s.
     - الصوت AAC بمعدل 256 kb/s وتردد 48 kHz.
 - `scripts/video/verify_export.py`: يفحص الملفات المصدّرة نفسها.
 
