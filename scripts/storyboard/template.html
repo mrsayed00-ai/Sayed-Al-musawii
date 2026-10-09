@@ -161,6 +161,9 @@ function render(sc, v, opts) {
       if (e.type === 'chip') f.appendChild($(`<div class="chip" style="left:${e.x}px;top:${e.y}px;background:${e.bg};transform:rotate(${e.rot || 0}deg)">${e.t}</div>`));
       if (e.type === 'meter') f.appendChild($(`<div class="meter" style="left:${e.x}px;top:${e.y}px"><b>الشك</b><i style="width:${e.fill}%"></i></div>`));
       if (e.type === 'illus') f.appendChild($(`<div class="illus" style="left:${e.x}px;top:${e.y}px;transform:scale(${e.scale || 1});transform-origin:top left">${e.html}</div>`));
+      if (e.type === 'blind') {
+        f.appendChild($(`<img class="char" src="assets/blind/static.png" style="left:${e.x}px;top:${e.y}px;width:${64 * e.scale}px;height:${40 * e.scale}px">`));
+      }
       if (e.type === 'note') f.appendChild($(`<div class="note" style="left:${e.x}px;top:${e.y}px">${e.t}</div>`));
     }
     if (V1) {

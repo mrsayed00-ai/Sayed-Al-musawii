@@ -128,6 +128,12 @@
           const out = sc.chipsUntil && t > sc.chipsUntil ? clamp(1 - (t - sc.chipsUntil) / 0.2) : 1;
           if (t >= t0 && out > 0) f.appendChild($(`<div class="chip" style="left:${e.x}px;top:${e.y}px;background:${e.bg};opacity:${clamp((t - t0) / 0.12) * out};transform:rotate(${(e.rot || 0) + Math.sin(t * 6 + e.x) * 3}deg) scale(${0.85 + 0.15 * easeBack((t - t0) / 0.25)})">${e.t}</div>`));
         }
+        if (e.type === 'blind') {
+          const W = 64 * e.scale, H = 40 * e.scale, k = Math.floor(t * 8) % 8;
+          const bob = (ph) => 2.5 * Math.sin(2 * Math.PI * t / 1.4 + ph);
+          const lay = (src, dy) => `<img src="assets/blind/${src}" style="position:absolute;left:0;top:0;width:${W}px;height:${H}px;image-rendering:pixelated;transform:translateY(${dy}px)">`;
+          f.appendChild($(`<div style="position:absolute;left:${e.x}px;top:${e.y}px;width:${W}px;height:${H}px;opacity:${clamp((t - sc.start - 0.3) / 0.35)}">${lay('playerA.png', bob(0))}${lay('playerB.png', bob(Math.PI))}${lay(`fx_${k}.png`, 0)}</div>`));
+        }
         if (e.type === 'illus') f.appendChild($(`<div class="illus" style="left:${e.x}px;top:${e.y}px;transform:scale(${e.scale || 1});transform-origin:top left;opacity:${clamp((t - sc.start - 0.4) / 0.3)}">${e.html}</div>`));
       }
       if (sc.meter) {

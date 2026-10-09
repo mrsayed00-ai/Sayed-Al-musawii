@@ -28,7 +28,10 @@ const V = {
   S12: { stage: [host('G_25.3.png', { box: HOST })] },
   S13: { stage: [host('B04_pxqr.png', { box: HOST })] },
   S14: { stage: [phone(null, { box: PHONE_V2, seq: [[27.18, 'C02.png'], [29.58, 'C01.png']] })],
-         stageV1: [phone(null, { box: PHONE_V1, seq: [[27.18, 'C02.png'], [29.58, 'C01.png']] })] },
+         stageV1: [phone(null, { box: PHONE_V1, seq: [[27.18, 'C02.png'], [29.58, 'C01.png']] })],
+         // two pixel players facing each other, larger in the video (free space beside the phone)
+         extrasV1: [{ type: 'blind', x: 52, y: 690, scale: 6 }],
+         extrasV2: [{ type: 'blind', x: 18, y: 680, scale: 4.6 }] },
   S15: { stage: [host(null, { box: HOST, seq: [[31.82, 'B04_pxqr.png'], [34.25, 'B05.png']] })], chipsUntil: 34.25 },
   S16: { stage: [host('G_movies_noprice.png', { box: [60, 430, 960, 330], pos: 'top' })] },
   S17: { stage: [host(null, { box: HOST, seq: [[40.84, 'C04.png'], [42.0, 'C05.png']] })] },

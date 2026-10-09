@@ -9,14 +9,7 @@ const H_IMP = { text: 'الأمبوستر', step: '01', color: 'var(--red)', ink
 const H_BLIND = { text: 'بدون لا أشوف', step: '02', color: 'var(--green)', ink: '#fff' };
 const H_MOV = { text: 'فانوس Movies', step: '03' };
 const H_KIDS = { text: 'فانوس Kids', step: '04', color: 'var(--kids)', ink: '#fff' };
-const PX_ILLUS = `<svg width="300" height="170" viewBox="0 0 30 17" shape-rendering="crispEdges">
-<rect x="2" y="2" width="8" height="13" fill="#0D0A1C"/><rect x="3" y="3" width="6" height="11" fill="#F2A60F"/>
-<rect x="20" y="2" width="8" height="13" fill="#0D0A1C"/><rect x="21" y="3" width="6" height="11" fill="#F2A60F"/>
-<rect x="5" y="5" width="2" height="1" fill="#1A1440"/><rect x="6" y="6" width="1" height="2" fill="#1A1440"/><rect x="5" y="10" width="1" height="1" fill="#1A1440"/>
-<rect x="23" y="5" width="2" height="1" fill="#1A1440"/><rect x="24" y="6" width="1" height="2" fill="#1A1440"/><rect x="23" y="10" width="1" height="1" fill="#1A1440"/>
-<rect x="12" y="7" width="6" height="1" fill="#fff"/><rect x="12" y="6" width="1" height="1" fill="#fff"/><rect x="17" y="8" width="1" height="1" fill="#fff"/>
-<rect x="12" y="10" width="6" height="1" fill="#fff"/><rect x="17" y="9" width="1" height="1" fill="#fff"/><rect x="12" y="11" width="1" height="1" fill="#fff"/>
-</svg><div style="text-align:center">رسم بكسل توضيحي — ليس واجهة</div>`;
+// «بدون لا أشوف» illustration: two pixel players facing each other (scripts/character/blind_illus.py)
 
 module.exports = [
   {
@@ -123,10 +116,10 @@ module.exports = [
     id: 'S14', t: [27.18, 30.53], phrases: [14, 15], layout: 'stage', heading: H_BLIND,
     stage: [{ kind: 'phone', img: 'C01.png', box: PHONE_V2, pos: 'top' }, { kind: 'phone', img: 'C02.png', box: [40, 470, 250, 430], pos: 'top' }],
     stageV1: [{ kind: 'phone', img: 'C01.png', box: PHONE_V1, pos: 'top' }, { kind: 'phone', img: 'C02.png', box: [90, 440, 250, 430], pos: 'top' }],
-    extrasV2: [{ type: 'illus', x: 790, y: 440, scale: 0.8, html: PX_ILLUS }],
-    extrasV1: [{ type: 'illus', x: 92, y: 884, scale: 0.75, html: PX_ILLUS }],
+    extrasV2: [{ type: 'blind', x: 772, y: 440, scale: 4 }],
+    extrasV1: [{ type: 'blind', x: 70, y: 872, scale: 4.2 }],
     cap: 'وكل واحد يوجّه [[شاشة تليفونه]] للثاني،', kw: 'يوجّه [[شاشة تليفونه]] للثاني،', char: 'sly',
-    beats: { V1: 'العبارة 14: «اضغط على جاهز وحط الشاشة باتجاه خصمك» (C02). العبارة 15: الصورة التي يراها الخصم فقط، «برياني» (C01)، وتحلّ ترجمتها «بدون ما يشوف شنو طلع له.» محل العبارة 14 عند 29.58 ث. رسم بكسل صغير لهاتفين متقابلين يشرح الحركة، وليس واجهة.', V2: 'نفسه مع ترجمة كاملة.' },
+    beats: { V1: 'العبارة 14: «اضغط على جاهز وحط الشاشة باتجاه خصمك» (C02). العبارة 15: الصورة التي يراها الخصم فقط، «برياني» (C01)، وتحلّ ترجمتها «بدون ما يشوف شنو طلع له.» محل العبارة 14 عند 29.58 ث. رسم بكسل لشخصين متقابلين، كل واحد يرفع تلفونه وشاشته للثاني ويشوف شاشة الثاني فقط (خطّا النظر يتقاطعان). توضيح وليس واجهة.', V2: 'نفسه مع ترجمة كاملة.' },
     assets: '✅ C01، C02',
   },
   {
