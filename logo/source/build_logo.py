@@ -1,7 +1,8 @@
 """Build the playful «صفحة واحد» YouTube logo as a fully-outlined SVG.
 
 Layout: a big swinging gold bookmark shaped like the number 1 on top, the name «صفحة واحد» on one
-line underneath. Everything sits inside the circle YouTube crops profile
+line underneath, framed by a stitched gold badge ring with soft light rays
+behind the 1. Everything sits inside the circle YouTube crops profile
 pictures to.
 
 Text is shaped with HarfBuzz and converted to vector paths with fontTools, so
@@ -15,6 +16,7 @@ Download BalooBhaijaan2-ExtraBold.ttf into ./fonts next to this script, then:
     python build_logo.py            # writes ../safha-wahed-logo*.svg
 """
 
+import math
 from pathlib import Path
 
 import uharfbuzz as hb
@@ -94,10 +96,22 @@ ONE_RIBBON = ("M0 0Q-10 0 -18.4 5.5L-112.3 66.4Q-119 70.8 -114.6 77.5"
 STITCH = "M-35 104V334L0 296L35 334V20"
 
 
+def rays(cx, cy, r, n=18):
+    """n thin wedges radiating from (cx, cy), each half the angular step wide."""
+    out = []
+    step = 2 * math.pi / n
+    for i in range(n):
+        a1, a2 = i * step, i * step + step / 2
+        x1, y1 = cx + r * math.cos(a1), cy + r * math.sin(a1)
+        x2, y2 = cx + r * math.cos(a2), cy + r * math.sin(a2)
+        out.append(f"M{cx} {cy}L{x1:.1f} {y1:.1f}A{r} {r} 0 0 1 {x2:.1f} {y2:.1f}Z")
+    return "".join(out)
+
+
 def build(background):
     # Name on one line. Split the letter dots (contours sitting entirely
     # above the letter bodies) so they can be gold and bounce.
-    size, baseline = 116, 628
+    size, baseline = 106, 618  # sized to sit inside the badge ring
     name = contours("صفحة واحد", size, 400, baseline)
     dot_line = baseline - 186 / 330 * size
     body = [c for c in name if c[1][3] > dot_line]
@@ -105,7 +119,8 @@ def build(background):
     assert len(dots) == 3, f"expected 3 dots, found {len(dots)}"
     bounce = [(-1, -8), (1, -3), (0, -6)]  # left ة dot, right ة dot, ف dot
     dots_svg = "\n    ".join(
-        f'<g transform="translate({dx} {dy})">{path([c], fill=GOLD)}</g>'
+        f'<g transform="translate({dx} {dy})">'
+        f'{path([c], fill=GOLD_DARK, transform="translate(0 4)")}{path([c], fill=GOLD)}</g>'
         for c, (dx, dy) in zip(dots, bounce)
     )
 
@@ -138,13 +153,42 @@ def build(background):
       <stop offset="1" stop-color="#FFF1CC" stop-opacity=".6"/>
     </linearGradient>
     <clipPath id="oneClip"><path d="{ONE_RIBBON}"/></clipPath>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFE3A0"/>
+      <stop offset=".5" stop-color="{GOLD}"/>
+      <stop offset="1" stop-color="#D08A18"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="-48" y1="0" x2="-120" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7A4405" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#7A4405" stop-opacity=".08"/>
+    </linearGradient>
+    <radialGradient id="rayFade" cx="398" cy="290" r="300" gradientUnits="userSpaceOnUse">
+      <stop offset=".15" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#000000"/>
+    </radialGradient>
+    <mask id="rayMask" maskUnits="userSpaceOnUse" x="0" y="0" width="800" height="800">
+      <rect width="800" height="800" fill="url(#rayFade)"/>
+    </mask>
     <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
       <feDropShadow dx="4" dy="16" stdDeviation="12" flood-color="#000000" flood-opacity=".55"/>
     </filter>
     <path id="spark" d="M0-1C.13-.13.13-.13 1 0C.13.13.13.13 0 1C-.13.13-.13.13-1 0C-.13-.13-.13-.13 0-1Z"/>
   </defs>
   {bg}
+
+  <!-- badge ring: a gold rim plus a stitched inner ring, like a woven patch -->
+  <circle cx="400" cy="400" r="373" fill="none" stroke="url(#ring)" stroke-width="3.5"/>
+  <circle cx="400" cy="400" r="360" fill="none" stroke="{GOLD}" stroke-opacity=".45" stroke-width="3"
+          stroke-dasharray="11 8" stroke-linecap="round"/>
+  <g fill="{GOLD}">
+    <use href="#spark" transform="translate(27 400) scale(13)"/>
+    <use href="#spark" transform="translate(773 400) scale(13)"/>
+  </g>
+
   <g transform="translate(0 10)">
+
+  <!-- soft light rays behind the 1 -->
+  <path d="{rays(398, 280, 300)}" fill="{GOLD}" fill-opacity=".1" mask="url(#rayMask)"/>
 
   <!-- swinging bookmark shaped as «1» -->
   <g transform="translate(440 116) rotate(7)">
@@ -152,6 +196,9 @@ def build(background):
       <path d="{ONE_RIBBON}" fill="{GOLD_DARK}" transform="translate(6 7)"/>
       <path d="{ONE_RIBBON}" fill="url(#gold)"/>
     </g>
+    <!-- the flag reads as the ribbon folded over: shaded, with a light crease -->
+    <path d="M-48 92L-13 0H-140V140Z" fill="url(#fold)" clip-path="url(#oneClip)"/>
+    <path d="M-47 88L-15 4" stroke="#FFF4D6" stroke-opacity=".6" stroke-width="2.5" stroke-linecap="round"/>
     <!-- polished bevel: the outline stroked, kept only on the inside -->
     <path d="{ONE_RIBBON}" fill="none" stroke="url(#rim)" stroke-width="9" clip-path="url(#oneClip)"/>
     <path d="{STITCH}" fill="none" stroke="#FFF4D6" stroke-opacity=".75" stroke-width="3.5"
@@ -173,9 +220,16 @@ def build(background):
     <circle cx="232" cy="250" r="6"/>
     <circle cx="540" cy="420" r="6"/>
   </g>
+  <g fill="none" stroke="{GOLD}" stroke-width="3.5" stroke-linecap="round">
+    <circle cx="222" cy="176" r="8"/>
+    <circle cx="616" cy="398" r="6"/>
+    <path d="M186 420q8-10 16 0t16 0t16 0"/>
+    <path d="M598 160l14 6"/>
+  </g>
 
   <!-- صفحة واحد -->
   <g transform="rotate(-2 400 590)">
+    {path(body, fill=GOLD_DARK, transform="translate(0 5)")}
     {path(body, fill=CREAM)}
     {dots_svg}
   </g>
