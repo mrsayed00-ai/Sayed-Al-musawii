@@ -84,11 +84,12 @@ def bbox(cs):
 
 
 # The number 1 drawn as a bookmark: a slim ribbon is the upright stroke (with
-# the notched bottom) and the 1's flag sweeps down-left from its top, ending
-# in a round ball terminal. Origin at the top centre of the stem.
-ONE_RIBBON = ("M-20 0C-64 0 -108 30 -136 64A26 26 0 1 0 -100.4 90.5"
-              "C-88 70 -62 56 -48 68V346Q-48 360 -37 352L0 312L37 352"
-              "Q48 360 48 346V16Q48 0 32 0Z")
+# the notched bottom) and the 1's flag is a straight stroke slanting down-left
+# from its top at 33 degrees, with a clean, softly rounded cut end.
+# Origin at the top centre of the stem.
+ONE_RIBBON = ("M0 0Q-10 0 -18.4 5.5L-112.3 66.4Q-119 70.8 -114.6 77.5"
+              "L-98.3 102.7Q-93.9 109.4 -87.2 105L-56.4 85.1Q-48 79.6 -48 89.6"
+              "V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z")
 # Dashed stitching just inside the ribbon's edges.
 STITCH = "M-35 104V334L0 296L35 334V20"
 
@@ -146,7 +147,7 @@ def build(background):
   <g transform="translate(0 10)">
 
   <!-- swinging bookmark shaped as «1» -->
-  <g transform="translate(452 116) rotate(7)">
+  <g transform="translate(440 116) rotate(7)">
     <g filter="url(#lift)">
       <path d="{ONE_RIBBON}" fill="{GOLD_DARK}" transform="translate(6 7)"/>
       <path d="{ONE_RIBBON}" fill="url(#gold)"/>
@@ -167,7 +168,7 @@ def build(background):
     <use href="#spark" transform="translate(262 330) scale(32)"/>
     <use href="#spark" transform="translate(572 318) scale(20)"/>
     <use href="#spark" transform="translate(298 418) scale(13)"/>
-    <circle cx="316" cy="118" r="8"/>
+    <circle cx="300" cy="136" r="8"/>
     <circle cx="566" cy="226" r="7"/>
     <circle cx="232" cy="250" r="6"/>
     <circle cx="540" cy="420" r="6"/>

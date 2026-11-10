@@ -20,7 +20,7 @@
       <stop offset=".55" stop-color="#FFF1CC" stop-opacity=".25"/>
       <stop offset="1" stop-color="#FFF1CC" stop-opacity=".6"/>
     </linearGradient>
-    <clipPath id="oneClip"><path d="M-20 0C-64 0 -108 30 -136 64A26 26 0 1 0 -100.4 90.5C-88 70 -62 56 -48 68V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z"/></clipPath>
+    <clipPath id="oneClip"><path d="M0 0Q-10 0 -18.4 5.5L-112.3 66.4Q-119 70.8 -114.6 77.5L-98.3 102.7Q-93.9 109.4 -87.2 105L-56.4 85.1Q-48 79.6 -48 89.6V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z"/></clipPath>
     <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
       <feDropShadow dx="4" dy="16" stdDeviation="12" flood-color="#000000" flood-opacity=".55"/>
     </filter>
@@ -30,13 +30,13 @@
   <g transform="translate(0 10)">
 
   <!-- swinging bookmark shaped as «1» -->
-  <g transform="translate(452 116) rotate(7)">
+  <g transform="translate(440 116) rotate(7)">
     <g filter="url(#lift)">
-      <path d="M-20 0C-64 0 -108 30 -136 64A26 26 0 1 0 -100.4 90.5C-88 70 -62 56 -48 68V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z" fill="#B8760F" transform="translate(6 7)"/>
-      <path d="M-20 0C-64 0 -108 30 -136 64A26 26 0 1 0 -100.4 90.5C-88 70 -62 56 -48 68V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z" fill="url(#gold)"/>
+      <path d="M0 0Q-10 0 -18.4 5.5L-112.3 66.4Q-119 70.8 -114.6 77.5L-98.3 102.7Q-93.9 109.4 -87.2 105L-56.4 85.1Q-48 79.6 -48 89.6V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z" fill="#B8760F" transform="translate(6 7)"/>
+      <path d="M0 0Q-10 0 -18.4 5.5L-112.3 66.4Q-119 70.8 -114.6 77.5L-98.3 102.7Q-93.9 109.4 -87.2 105L-56.4 85.1Q-48 79.6 -48 89.6V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z" fill="url(#gold)"/>
     </g>
     <!-- polished bevel: the outline stroked, kept only on the inside -->
-    <path d="M-20 0C-64 0 -108 30 -136 64A26 26 0 1 0 -100.4 90.5C-88 70 -62 56 -48 68V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z" fill="none" stroke="url(#rim)" stroke-width="9" clip-path="url(#oneClip)"/>
+    <path d="M0 0Q-10 0 -18.4 5.5L-112.3 66.4Q-119 70.8 -114.6 77.5L-98.3 102.7Q-93.9 109.4 -87.2 105L-56.4 85.1Q-48 79.6 -48 89.6V346Q-48 360 -37 352L0 312L37 352Q48 360 48 346V16Q48 0 32 0Z" fill="none" stroke="url(#rim)" stroke-width="9" clip-path="url(#oneClip)"/>
     <path d="M-35 104V334L0 296L35 334V20" fill="none" stroke="#FFF4D6" stroke-opacity=".75" stroke-width="3.5"
           stroke-dasharray="11 8" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
@@ -51,7 +51,7 @@
     <use href="#spark" transform="translate(262 330) scale(32)"/>
     <use href="#spark" transform="translate(572 318) scale(20)"/>
     <use href="#spark" transform="translate(298 418) scale(13)"/>
-    <circle cx="316" cy="118" r="8"/>
+    <circle cx="300" cy="136" r="8"/>
     <circle cx="566" cy="226" r="7"/>
     <circle cx="232" cy="250" r="6"/>
     <circle cx="540" cy="420" r="6"/>
