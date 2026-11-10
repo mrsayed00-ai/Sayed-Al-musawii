@@ -83,12 +83,14 @@ def bbox(cs):
             max(b[2] for _, b in cs), max(b[3] for _, b in cs))
 
 
-# The number 1 drawn as a bookmark: the ribbon is the upright stroke (with the
-# notched bottom) and the 1's flag slants down-left from its top.
-# Origin at the top centre of the stem; stem is 120 wide, 344 tall.
-ONE_RIBBON = ("M-26 0H40Q60 0 60 20V330Q60 344 48 336L0 292L-48 336"
-              "Q-60 344 -60 330V84L-96 107A27.5 27.5 0 0 1 -125 60"
-              "L-46 10Q-38 0 -26 0Z")
+# The number 1 drawn as a bookmark: a slim ribbon is the upright stroke (with
+# the notched bottom) and the 1's flag sweeps down-left from its top, ending
+# in a round ball terminal. Origin at the top centre of the stem.
+ONE_RIBBON = ("M-20 0C-64 0 -108 30 -136 64A26 26 0 1 0 -100.4 90.5"
+              "C-88 70 -62 56 -48 68V346Q-48 360 -37 352L0 312L37 352"
+              "Q48 360 48 346V16Q48 0 32 0Z")
+# Dashed stitching just inside the ribbon's edges.
+STITCH = "M-35 104V334L0 296L35 334V20"
 
 
 def build(background):
@@ -123,21 +125,36 @@ def build(background):
       <stop offset="0" stop-color="{GOLD}" stop-opacity=".22"/>
       <stop offset="1" stop-color="{GOLD}" stop-opacity="0"/>
     </radialGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFD66E"/>
-      <stop offset="1" stop-color="#F0A322"/>
+    <linearGradient id="gold" x1="-150" y1="0" x2="60" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFE7A4"/>
+      <stop offset=".38" stop-color="#F7BD45"/>
+      <stop offset=".72" stop-color="#E2961C"/>
+      <stop offset="1" stop-color="#FBCB62"/>
     </linearGradient>
+    <linearGradient id="rim" x1="-150" y1="0" x2="60" y2="360" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFF8E6" stop-opacity=".95"/>
+      <stop offset=".55" stop-color="#FFF1CC" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#FFF1CC" stop-opacity=".6"/>
+    </linearGradient>
+    <clipPath id="oneClip"><path d="{ONE_RIBBON}"/></clipPath>
+    <filter id="lift" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="4" dy="16" stdDeviation="12" flood-color="#000000" flood-opacity=".55"/>
+    </filter>
     <path id="spark" d="M0-1C.13-.13.13-.13 1 0C.13.13.13.13 0 1C-.13.13-.13.13-1 0C-.13-.13-.13-.13 0-1Z"/>
   </defs>
   {bg}
   <g transform="translate(0 10)">
 
   <!-- swinging bookmark shaped as «1» -->
-  <g transform="translate(440 128) rotate(8)">
-    <path d="{ONE_RIBBON}" fill="{GOLD_DARK}" transform="translate(10 10)"/>
-    <path d="{ONE_RIBBON}" fill="url(#gold)"/>
-    <rect x="-44" y="104" width="13" height="170" rx="6.5" fill="#FFFFFF" fill-opacity=".3"/>
-    <path d="M-104 64L-58 34" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="12" stroke-linecap="round"/>
+  <g transform="translate(452 116) rotate(7)">
+    <g filter="url(#lift)">
+      <path d="{ONE_RIBBON}" fill="{GOLD_DARK}" transform="translate(6 7)"/>
+      <path d="{ONE_RIBBON}" fill="url(#gold)"/>
+    </g>
+    <!-- polished bevel: the outline stroked, kept only on the inside -->
+    <path d="{ONE_RIBBON}" fill="none" stroke="url(#rim)" stroke-width="9" clip-path="url(#oneClip)"/>
+    <path d="{STITCH}" fill="none" stroke="#FFF4D6" stroke-opacity=".75" stroke-width="3.5"
+          stroke-dasharray="11 8" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
   <!-- pop lines + sparkles -->
