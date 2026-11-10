@@ -18,27 +18,27 @@
   
   <g transform="translate(0 10)">
 
-  <!-- swinging bookmark «1» -->
-  <g transform="translate(418 130) rotate(8)">
-    <path d="M-48 0H48Q70 0 70 22V318Q70 332 58 324L0 278L-58 324Q-70 332 -70 318V22Q-70 0 -48 0Z" fill="#B8760F" transform="translate(10 10)"/>
-    <path d="M-48 0H48Q70 0 70 22V318Q70 332 58 324L0 278L-58 324Q-70 332 -70 318V22Q-70 0 -48 0Z" fill="url(#gold)"/>
-    <rect x="-54" y="24" width="13" height="226" rx="6.5" fill="#FFFFFF" fill-opacity=".3"/>
-    <g transform="translate(8.5 192.7)"><path d="M24.415 -24.89H-7.885000000000002V-84.74L-26.885 -78.85Q-29.735 -80.75 -32.585 -84.17Q-35.435 -87.59 -35.435 -93.67Q-35.435 -105.07000000000001 -21.565 -109.63L-0.2850000000000037 -116.85H6.744999999999997Q14.915 -116.85 19.665 -112.1Q24.415 -107.35 24.415 -99.18ZM-7.885000000000002 -50.160000000000004H24.415V-0.19Q22.325000000000003 0.38 18.43 0.95Q14.534999999999997 1.52 9.975000000000001 1.52Q0.6649999999999991 1.52 -3.610000000000001 -1.7100000000000002Q-7.885000000000002 -4.94 -7.885000000000002 -13.68Z" fill="#141414"/></g>
+  <!-- swinging bookmark shaped as «1» -->
+  <g transform="translate(440 128) rotate(8)">
+    <path d="M-26 0H40Q60 0 60 20V330Q60 344 48 336L0 292L-48 336Q-60 344 -60 330V84L-96 107A27.5 27.5 0 0 1 -125 60L-46 10Q-38 0 -26 0Z" fill="#B8760F" transform="translate(10 10)"/>
+    <path d="M-26 0H40Q60 0 60 20V330Q60 344 48 336L0 292L-48 336Q-60 344 -60 330V84L-96 107A27.5 27.5 0 0 1 -125 60L-46 10Q-38 0 -26 0Z" fill="url(#gold)"/>
+    <rect x="-44" y="104" width="13" height="170" rx="6.5" fill="#FFFFFF" fill-opacity=".3"/>
+    <path d="M-104 64L-58 34" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="12" stroke-linecap="round"/>
   </g>
 
   <!-- pop lines + sparkles -->
   <g fill="none" stroke="#F6B73C" stroke-width="9" stroke-linecap="round">
-    <path d="M508 112L530 86"/>
-    <path d="M520 140L552 134"/>
-    <path d="M488 98L494 66"/>
+    <path d="M520 112L542 86"/>
+    <path d="M532 140L564 134"/>
+    <path d="M500 98L506 66"/>
   </g>
   <g fill="#F6B73C">
-    <use href="#spark" transform="translate(286 236) scale(32)"/>
-    <use href="#spark" transform="translate(566 318) scale(20)"/>
-    <use href="#spark" transform="translate(300 400) scale(13)"/>
-    <circle cx="330" cy="150" r="8"/>
-    <circle cx="560" cy="226" r="7"/>
-    <circle cx="246" cy="330" r="6"/>
+    <use href="#spark" transform="translate(262 330) scale(32)"/>
+    <use href="#spark" transform="translate(572 318) scale(20)"/>
+    <use href="#spark" transform="translate(298 418) scale(13)"/>
+    <circle cx="316" cy="118" r="8"/>
+    <circle cx="566" cy="226" r="7"/>
+    <circle cx="232" cy="250" r="6"/>
     <circle cx="540" cy="420" r="6"/>
   </g>
 

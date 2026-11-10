@@ -1,6 +1,6 @@
 """Build the playful «صفحة واحد» YouTube logo as a fully-outlined SVG.
 
-Layout: a big swinging gold bookmark with «1» on top, the name «صفحة واحد» on one
+Layout: a big swinging gold bookmark shaped like the number 1 on top, the name «صفحة واحد» on one
 line underneath. Everything sits inside the circle YouTube crops profile
 pictures to.
 
@@ -83,9 +83,12 @@ def bbox(cs):
             max(b[2] for _, b in cs), max(b[3] for _, b in cs))
 
 
-# Bookmark ribbon, 140 x 330, origin at its top centre.
-RIBBON = ("M-48 0H48Q70 0 70 22V318Q70 332 58 324L0 278"
-          "L-58 324Q-70 332 -70 318V22Q-70 0 -48 0Z")
+# The number 1 drawn as a bookmark: the ribbon is the upright stroke (with the
+# notched bottom) and the 1's flag slants down-left from its top.
+# Origin at the top centre of the stem; stem is 120 wide, 344 tall.
+ONE_RIBBON = ("M-26 0H40Q60 0 60 20V330Q60 344 48 336L0 292L-48 336"
+              "Q-60 344 -60 330V84L-96 107A27.5 27.5 0 0 1 -125 60"
+              "L-46 10Q-38 0 -26 0Z")
 
 
 def build(background):
@@ -102,11 +105,6 @@ def build(background):
         f'<g transform="translate({dx} {dy})">{path([c], fill=GOLD)}</g>'
         for c, (dx, dy) in zip(dots, bounce)
     )
-
-    # «1» centred in the upper part of the ribbon.
-    one = contours("1", 190, 0, 0)
-    x0, y0, x1, y1 = bbox(one)
-    one_tf = f"translate({-(x0 + x1) / 2 + 3:.1f} {135 - (y0 + y1) / 2:.1f})"
 
     if background:
         bg = """<rect width="800" height="800" fill="url(#bg)"/>
@@ -134,27 +132,27 @@ def build(background):
   {bg}
   <g transform="translate(0 10)">
 
-  <!-- swinging bookmark «1» -->
-  <g transform="translate(418 130) rotate(8)">
-    <path d="{RIBBON}" fill="{GOLD_DARK}" transform="translate(10 10)"/>
-    <path d="{RIBBON}" fill="url(#gold)"/>
-    <rect x="-54" y="24" width="13" height="226" rx="6.5" fill="#FFFFFF" fill-opacity=".3"/>
-    <g transform="{one_tf}">{path(one, fill=INK)}</g>
+  <!-- swinging bookmark shaped as «1» -->
+  <g transform="translate(440 128) rotate(8)">
+    <path d="{ONE_RIBBON}" fill="{GOLD_DARK}" transform="translate(10 10)"/>
+    <path d="{ONE_RIBBON}" fill="url(#gold)"/>
+    <rect x="-44" y="104" width="13" height="170" rx="6.5" fill="#FFFFFF" fill-opacity=".3"/>
+    <path d="M-104 64L-58 34" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="12" stroke-linecap="round"/>
   </g>
 
   <!-- pop lines + sparkles -->
   <g fill="none" stroke="{GOLD}" stroke-width="9" stroke-linecap="round">
-    <path d="M508 112L530 86"/>
-    <path d="M520 140L552 134"/>
-    <path d="M488 98L494 66"/>
+    <path d="M520 112L542 86"/>
+    <path d="M532 140L564 134"/>
+    <path d="M500 98L506 66"/>
   </g>
   <g fill="{GOLD}">
-    <use href="#spark" transform="translate(286 236) scale(32)"/>
-    <use href="#spark" transform="translate(566 318) scale(20)"/>
-    <use href="#spark" transform="translate(300 400) scale(13)"/>
-    <circle cx="330" cy="150" r="8"/>
-    <circle cx="560" cy="226" r="7"/>
-    <circle cx="246" cy="330" r="6"/>
+    <use href="#spark" transform="translate(262 330) scale(32)"/>
+    <use href="#spark" transform="translate(572 318) scale(20)"/>
+    <use href="#spark" transform="translate(298 418) scale(13)"/>
+    <circle cx="316" cy="118" r="8"/>
+    <circle cx="566" cy="226" r="7"/>
+    <circle cx="232" cy="250" r="6"/>
     <circle cx="540" cy="420" r="6"/>
   </g>
 
