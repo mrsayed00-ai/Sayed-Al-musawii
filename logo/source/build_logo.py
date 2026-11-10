@@ -1,4 +1,8 @@
-"""Build the playful «صفحة واحد» logo as a fully-outlined SVG.
+"""Build the playful «صفحة واحد» YouTube logo as a fully-outlined SVG.
+
+Layout: a big swinging gold bookmark with «1» on top, the name «صفحة واحد» on one
+line underneath. Everything sits inside the circle YouTube crops profile
+pictures to.
 
 Text is shaped with HarfBuzz and converted to vector paths with fontTools, so
 the SVG needs no fonts to display. The letter dots of «صفحة» are pulled out as
@@ -26,6 +30,7 @@ OUT = HERE.parent
 
 CREAM = "#F5EBDA"
 GOLD = "#F6B73C"
+GOLD_DARK = "#B8760F"
 INK = "#141414"
 
 _tt = TTFont(FONT)
@@ -73,92 +78,91 @@ def path(cs, **attrs):
     return f'<path d="{d}"{extra}/>'
 
 
+def bbox(cs):
+    return (min(b[0] for _, b in cs), min(b[1] for _, b in cs),
+            max(b[2] for _, b in cs), max(b[3] for _, b in cs))
+
+
+# Bookmark ribbon, 140 x 330, origin at its top centre.
+RIBBON = ("M-48 0H48Q70 0 70 22V318Q70 332 58 324L0 278"
+          "L-58 324Q-70 332 -70 318V22Q-70 0 -48 0Z")
+
+
 def build(background):
-    # «صفحة» — split the letter dots (everything sitting fully above the
-    # letter bodies) from the bodies so they can be gold and bounce.
-    w1 = contours("صفحة", 330, 600, 370)
-    body_top = 370 - 186
-    body = [c for c in w1 if c[1][3] > body_top]
-    dots = sorted((c for c in w1 if c[1][3] <= body_top), key=lambda c: c[1][0])
+    # Name on one line. Split the letter dots (contours sitting entirely
+    # above the letter bodies) so they can be gold and bounce.
+    size, baseline = 116, 628
+    name = contours("صفحة واحد", size, 400, baseline)
+    dot_line = baseline - 186 / 330 * size
+    body = [c for c in name if c[1][3] > dot_line]
+    dots = sorted((c for c in name if c[1][3] <= dot_line), key=lambda c: c[1][0])
     assert len(dots) == 3, f"expected 3 dots, found {len(dots)}"
-    bounce = [(-2, -14), (2, -4), (0, -10)]  # left ة dot, right ة dot, ف dot
+    bounce = [(-1, -8), (1, -3), (0, -6)]  # left ة dot, right ة dot, ف dot
     dots_svg = "\n    ".join(
         f'<g transform="translate({dx} {dy})">{path([c], fill=GOLD)}</g>'
         for c, (dx, dy) in zip(dots, bounce)
     )
 
-    waw = contours("و", 330, 898, 650)
-    hd = contours("حد", 330, 442, 650)
-    one = contours("1", 140, 2, 140)
-    tag = contours("بداية كل شي", 92, 600, 1080)
+    # «1» centred in the upper part of the ribbon.
+    one = contours("1", 190, 0, 0)
+    x0, y0, x1, y1 = bbox(one)
+    one_tf = f"translate({-(x0 + x1) / 2 + 3:.1f} {135 - (y0 + y1) / 2:.1f})"
 
-    bg = f'<rect width="1200" height="1200" fill="{INK}"/>' if background else ""
+    if background:
+        bg = """<rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="410" cy="300" r="250" fill="url(#glow)"/>"""
+    else:
+        bg = ""
 
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200">
-  <title>صفحة واحد — بداية كل شي</title>
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+  <title>صفحة واحد</title>
   <defs>
+    <radialGradient id="bg" cx="400" cy="380" r="480" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#211E1A"/>
+      <stop offset="1" stop-color="{INK}"/>
+    </radialGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="{GOLD}" stop-opacity=".22"/>
+      <stop offset="1" stop-color="{GOLD}" stop-opacity="0"/>
+    </radialGradient>
     <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#FFD36B"/>
-      <stop offset="1" stop-color="#EFA526"/>
+      <stop offset="0" stop-color="#FFD66E"/>
+      <stop offset="1" stop-color="#F0A322"/>
     </linearGradient>
     <path id="spark" d="M0-1C.13-.13.13-.13 1 0C.13.13.13.13 0 1C-.13.13-.13.13-1 0C-.13-.13-.13-.13 0-1Z"/>
   </defs>
   {bg}
+  <g transform="translate(0 10)">
 
-  <!-- صفحة -->
-  <g transform="rotate(-4 600 260)">
+  <!-- swinging bookmark «1» -->
+  <g transform="translate(418 130) rotate(8)">
+    <path d="{RIBBON}" fill="{GOLD_DARK}" transform="translate(10 10)"/>
+    <path d="{RIBBON}" fill="url(#gold)"/>
+    <rect x="-54" y="24" width="13" height="226" rx="6.5" fill="#FFFFFF" fill-opacity=".3"/>
+    <g transform="{one_tf}">{path(one, fill=INK)}</g>
+  </g>
+
+  <!-- pop lines + sparkles -->
+  <g fill="none" stroke="{GOLD}" stroke-width="9" stroke-linecap="round">
+    <path d="M508 112L530 86"/>
+    <path d="M520 140L552 134"/>
+    <path d="M488 98L494 66"/>
+  </g>
+  <g fill="{GOLD}">
+    <use href="#spark" transform="translate(286 236) scale(32)"/>
+    <use href="#spark" transform="translate(566 318) scale(20)"/>
+    <use href="#spark" transform="translate(300 400) scale(13)"/>
+    <circle cx="330" cy="150" r="8"/>
+    <circle cx="560" cy="226" r="7"/>
+    <circle cx="246" cy="330" r="6"/>
+    <circle cx="540" cy="420" r="6"/>
+  </g>
+
+  <!-- صفحة واحد -->
+  <g transform="rotate(-2 400 590)">
     {path(body, fill=CREAM)}
     {dots_svg}
   </g>
-
-  <!-- و [bookmark-1] حد -->
-  <g transform="rotate(2.5 600 560)">
-    {path(waw, fill=CREAM)}
-    <g transform="translate(728 425) rotate(7)">
-      <path d="M-32 0H32Q50 0 50 18V280Q50 290 41 284L0 250L-41 284Q-50 290 -50 280V18Q-50 0 -32 0Z" fill="url(#gold)"/>
-      <rect x="-37" y="16" width="10" height="200" rx="5" fill="#FFFFFF" fill-opacity=".3"/>
-      {path(one, fill=INK)}
-    </g>
-    <g fill="none" stroke="{GOLD}" stroke-width="7" stroke-linecap="round">
-      <path d="M662 432L640 416"/>
-      <path d="M654 466L628 466"/>
-      <path d="M676 404L666 382"/>
-    </g>
-    {path(hd, fill=CREAM)}
-  </g>
-
-  <!-- open book with fluttering pages -->
-  <g transform="translate(280 770)">
-    <g fill="none" stroke="{CREAM}" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M320 196C250 164 130 162 18 182" stroke-width="11"/>
-      <path d="M320 196C390 164 510 162 622 182" stroke-width="11"/>
-      <path d="M320 176C255 142 145 140 42 156" stroke-width="7"/>
-      <path d="M320 176C385 142 495 140 598 156" stroke-width="7"/>
-      <path d="M320 158C262 120 160 116 66 130" stroke-width="6"/>
-      <path d="M320 158C378 120 480 116 574 130" stroke-width="6"/>
-      <path d="M320 196V156" stroke-width="8"/>
-    </g>
-    <g fill="{CREAM}" stroke="{CREAM}" stroke-width="4" stroke-linejoin="round">
-      <path d="M320 156C298 106 252 76 190 66L180 88C240 98 288 124 320 156Z"/>
-      <path d="M320 156C318 102 330 62 356 30L374 44C348 74 330 110 320 156Z"/>
-      <path d="M320 156C350 104 400 76 462 70L468 92C410 100 360 124 320 156Z"/>
-    </g>
-    <g fill="{GOLD}">
-      <use href="#spark" transform="translate(126 60) scale(22)"/>
-      <use href="#spark" transform="translate(536 74) scale(16)"/>
-      <use href="#spark" transform="translate(410 6) scale(12)"/>
-      <circle cx="232" cy="20" r="6"/>
-      <circle cx="80" cy="104" r="5"/>
-      <circle cx="590" cy="30" r="7"/>
-      <circle cx="270" cy="0" r="4"/>
-    </g>
-  </g>
-
-  <!-- بداية كل شي -->
-  {path(tag, fill=GOLD)}
-  <g fill="none" stroke="{GOLD}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M286 1052q10-12 20 0t20 0t20 0"/>
-    <path d="M854 1052q10-12 20 0t20 0t20 0"/>
   </g>
 </svg>
 """
